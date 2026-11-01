@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Giant Pumpkin Arms Race · Daniel Pradilla</title>
+  <meta name="description" content="An illustrated, to-scale history of the world's heaviest pumpkins, from William Warnock's 400-pounder to today's record, beside a person, a Labrador and a Volkswagen Golf.">
+  <link rel="canonical" href="https://www.danielpradilla.info/projects/halloween-giant-pumpkins/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Daniel Pradilla">
+  <meta property="og:title" content="The Giant Pumpkin Arms Race">
+  <meta property="og:description" content="How competitive growers turned pumpkins into monsters: every world-record pumpkin, to scale, beside a person, a Labrador and a Volkswagen Golf.">
+  <meta property="og:url" content="https://www.danielpradilla.info/projects/halloween-giant-pumpkins/">
+  <meta property="og:image" content="https://www.danielpradilla.info/projects/halloween-giant-pumpkins/public/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Illustrated giant pumpkins lined up beside a human silhouette on a dark stage.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1c1510">
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XYG5QF5DZL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XYG5QF5DZL');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="src/styles/game-style.css">
+  <link rel="stylesheet" href="src/styles/app.css">
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <svg class="ink-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="ink-wobble" x="-10%" y="-20%" width="125%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-boil-1" x="-10%" y="-20%" width="125%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="1" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-boil-2" x="-10%" y="-20%" width="125%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-boil-3" x="-10%" y="-20%" width="125%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <pattern id="halftone" width="7" height="7" patternUnits="userSpaceOnUse">
+        <circle cx="3.5" cy="3.5" r="1.4" fill="#1c1510" opacity="0.32"/>
+      </pattern>
+      <symbol id="i-play" viewBox="0 0 32 32">
+        <path d="M9 5.5c0-1 1-1.6 1.9-1.1l15.2 10.3c.8.6.8 1.8 0 2.4L10.9 27.5C10 28 9 27.4 9 26.4Z" fill="currentColor" stroke="#1c1510" stroke-width="2.4" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-pause" viewBox="0 0 32 32">
+        <path d="M8 5h5.5v22H8zM18.5 5H24v22h-5.5z" fill="currentColor" stroke="#1c1510" stroke-width="2.4" stroke-linejoin="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="shell">
+    <header class="dp-navbar">
+      <a class="dp-navbar-brand" href="/projects/">Daniel Pradilla</a>
+      <nav class="dp-navbar-links" aria-label="Site navigation">
+        <a href="#lineup">Lineup</a>
+        <a href="#arms-race">Record chart</a>
+        <a href="#sources">Sources</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/danielpradilla/halloween-giant-pumpkins">GitHub</a>
+      </nav>
+      <details class="dp-navbar-menu">
+        <summary aria-label="Menu">&#9776;</summary>
+        <nav aria-label="Site navigation (mobile)">
+          <a href="#lineup">Lineup</a>
+          <a href="#arms-race">Record chart</a>
+          <a href="#sources">Sources</a>
+          <a href="/blog/">Blog</a>
+          <a href="https://github.com/danielpradilla/halloween-giant-pumpkins">GitHub</a>
+        </nav>
+      </details>
+    </header>
+  </div>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="caption">A to-scale history · data updated <span data-slot="updated">…</span></p>
+          <h1 id="hero-title" class="title-card">The Giant Pumpkin Arms Race</h1>
+          <p class="hero-sub">How competitive growers turned pumpkins into monsters.</p>
+          <p class="hero-lede" data-slot="hero-lede"></p>
+          <p class="hero-actions">
+            <a class="btn btn-primary" href="#lineup">Explore the lineup</a>
+            <a class="btn" href="#sources">Sources &amp; methodology</a>
+          </p>
+        </div>
+        <figure class="hero-stage night" data-slot="hero-figure" aria-describedby="hero-figcap">
+          <figcaption id="hero-figcap" class="stage-caption" data-slot="hero-caption"></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="chapter shell" id="meet" aria-labelledby="meet-title">
+      <p class="eyebrow">Chapter 1</p>
+      <h2 id="meet-title">Meet the giants</h2>
+      <div class="meet-intro" data-slot="meet-intro"></div>
+      <figure class="panel panel-night meet-stage">
+        <div class="scene-scroll" data-slot="meet-scene"></div>
+        <figcaption class="stage-caption" data-slot="meet-caption"></figcaption>
+      </figure>
+      <div class="stat-row" data-slot="meet-stats"></div>
+    </section>
+
+    <section class="chapter" id="lineup" aria-labelledby="lineup-title">
+      <div class="shell">
+        <p class="eyebrow">Chapter 2</p>
+        <h2 id="lineup-title">Bigger. Heavier. Stranger.</h2>
+        <p class="chapter-lede">Every pumpkin in the record progression, on one ground line at one scale. Scroll sideways, drag the year slider or press <b>Play history</b>. Select a pumpkin for its grower, weight and source.</p>
+        <div class="legend-row" data-slot="legend"></div>
+      </div>
+      <div class="lineup-wrap shell-wide">
+        <div class="lineup-controls">
+          <button class="btn btn-primary" type="button" data-action="play"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span>Play history</span></button>
+          <div class="year-scrub">
+            <label class="label" for="year-range">Year <output class="num" id="year-out" for="year-range">…</output></label>
+            <input class="range" id="year-range" type="range" step="1">
+            <div class="year-ticks" aria-hidden="true" data-slot="year-ticks"></div>
+          </div>
+          <fieldset class="ref-toggles">
+            <legend class="label">Show for scale</legend>
+            <label class="choice"><input class="toggle" type="checkbox" data-ref="human" checked> <span data-slot="toggle-human">Human</span></label>
+            <label class="choice"><input class="toggle" type="checkbox" data-ref="dog" checked> <span data-slot="toggle-dog">Labrador</span></label>
+            <label class="choice"><input class="toggle" type="checkbox" data-ref="car" checked> <span data-slot="toggle-car">VW Golf</span></label>
+          </fieldset>
+        </div>
+        <div class="lineup-stage night">
+          <div class="ruler" aria-hidden="true" data-slot="ruler"></div>
+          <div class="lineup-scroll" data-slot="lineup" tabindex="-1"></div>
+        </div>
+        <p class="stage-note" data-slot="scale-note"></p>
+      </div>
+      <div class="shell">
+        <article class="panel detail" data-slot="detail" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section class="chapter shell" id="arms-race" aria-labelledby="arms-title">
+      <p class="eyebrow">Chapter 3</p>
+      <h2 id="arms-title">The arms race</h2>
+      <p class="chapter-lede" data-slot="arms-lede"></p>
+      <figure class="panel chart-panel">
+        <div class="chart-scroll" data-slot="step-chart"></div>
+        <figcaption class="muted chart-caption">Each step is a heavier pumpkin accepted as the world record in the year shown; the line holds flat until the next record. Orange points are the pumpkins in the lineup, labelled with year and weight rounded to the nearest kilogram. Dotted red lines mark 1,000, 2,000 and 3,000 lb. Kilograms are converted from pounds where pounds were the official unit.</figcaption>
+      </figure>
+    </section>
+
+    <section class="chapter shell" id="how-big" aria-labelledby="how-title">
+      <p class="eyebrow">Chapter 4</p>
+      <h2 id="how-title">How big can they get?</h2>
+      <p class="chapter-lede">The sources below describe what changed between the 400 lb pumpkins of 1900 and today's. None of them predicts where the record will stop.</p>
+      <div class="factor-grid">
+        <article class="panel factor">
+          <h3>Selective breeding</h3>
+          <p>Nova Scotia grower Howard Dill spent about 30 years selecting giant pumpkins from Mammoth varieties and developed Dill's Atlantic Giant. Oregon State University Extension: &ldquo;Every world champion since has come from its offspring.&rdquo; Growers still name seeds after the pumpkin they came from: a &ldquo;1050 Liggett&rdquo; seed came from a 1,050 lb pumpkin.</p>
+          <p class="factor-src">Sources: <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a>, <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University fact sheet HYG-1646</a></p>
+        </article>
+        <article class="panel factor">
+          <h3>Genetics</h3>
+          <p>Giant pumpkins are <i>Cucurbita maxima</i>. A 2022 genomic study places the giant (mammoth) group as descended from the hubbard group, with genes from the buttercup group mixed in. A 2015 study found that giant varieties had no more leaf area or photosynthetic capacity than their ancestor. They had more phloem, the tissue that carries sugar, in their leaf and fruit stalks.</p>
+          <p class="factor-src">Sources: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9531317/">Reddy et al. 2022, Frontiers in Genetics</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/25546629">Savage, Haines &amp; Holbrook 2015, Plant, Cell &amp; Environment</a></p>
+        </article>
+        <article class="panel factor">
+          <h3>Cultivation techniques</h3>
+          <p>Ohio State's guide allows about 1,000 square feet (93 m²) per plant and, once the fruits reach volleyball size, cuts back to one pumpkin per plant. Growers pollinate by hand to control the cross, bury the vine's leaf nodes so they root, and shade the fruit to prevent scalding and splitting.</p>
+          <p class="factor-src">Sources: <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University</a>, <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a></p>
+        </article>
+        <article class="panel factor">
+          <h3>Water and nutrients</h3>
+          <p>According to Oregon State, one plant can cover 1,200 square feet and take up to 500 US gallons (about 1,900 litres) of water a week. Ohio State recommends about 2 lb of nitrogen, 3 lb of phosphate and 6 lb of potash per 1,000 square feet. At peak growth an Atlantic Giant can gain close to 50 lb (23 kg) a day, according to plant physiologist Jessica Savage.</p>
+          <p class="factor-src">Sources: <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a>, <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University</a>, <a href="https://www.smithsonianmag.com/science-nature/surprising-science-giant-pumpkins-180957099/">Smithsonian, 2015</a></p>
+        </article>
+        <article class="panel factor">
+          <h3>Structural and biological limits</h3>
+          <p>Giant pumpkins flatten as they grow. Hu et al. (2011) measured height-to-width ratios falling by up to 50% from small to large fruit, mostly through deformation at the base. Cracks tend to appear during the fastest phase of growth and after sudden changes in water content, such as rainstorms. The same paper's model of a perfectly uniform shell fails at about 3.3 m across and 9,000 kg, but the authors note that uneven walls may break much earlier, so that figure is not a forecast.</p>
+          <p class="factor-src">Source: <a href="https://hu.gatech.edu/Publications/Hu11-pumpkin.pdf">Hu, Richards &amp; Alexeev 2011, Int. J. Non-Linear Mechanics</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter shell finale" aria-labelledby="final-title">
+      <h2 id="final-title" class="visually-hidden">Closing note</h2>
+      <div class="bubble finale-bubble" data-slot="finale"></div>
+    </section>
+
+    <section class="chapter shell" id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">Sources</p>
+      <h2 id="sources-title">Sources &amp; methodology</h2>
+      <div class="method-grid" data-slot="method"></div>
+      <h3 class="table-title">Record pumpkins</h3>
+      <div class="table-shell" data-slot="records-table"></div>
+      <h3 class="table-title">Reference objects</h3>
+      <div class="ref-sources" data-slot="ref-sources"></div>
+    </section>
+  </main>
+
+  <div class="shell">
+    <footer class="dp-footer">
+      <span>Data last updated <span data-slot="updated">…</span>. Code MIT licensed.</span>
+      <nav aria-label="Footer">
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/danielpradilla/halloween-giant-pumpkins">GitHub</a>
+      </nav>
+    </footer>
+  </div>
+  <noscript><p class="shell">This page draws its pumpkins with JavaScript. The data and sources are in <a href="https://github.com/danielpradilla/halloween-giant-pumpkins">the repository</a>.</p></noscript>
+</body>
+</html>

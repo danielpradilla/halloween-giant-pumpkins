@@ -1,0 +1,827 @@
+/* The Giant Pumpkin Arms Race: page styles on top of game-style.css (Daniel Game Style tokens and components). */
+
+:root {
+  --night: #1c1510;
+  --night-ground: #2e2219;
+  --ref-fill: #bfae8c;
+  --pumpkin: #ec7a2c;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.shell-wide {
+  width: min(1480px, calc(100% - 16px));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 500;
+  padding: 8px 12px;
+  background: var(--card);
+  border: var(--line) solid var(--ink);
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.small {
+  font-size: 0.88rem;
+}
+
+.dp-navbar .dp-navbar-brand,
+.dp-navbar nav a {
+  color: var(--ink);
+}
+
+/* ---------- Night stages ---------- */
+
+.night {
+  position: relative;
+  color: var(--card);
+  background:
+    radial-gradient(circle, rgb(255 250 238 / 0.08) 1px, transparent 1.5px) 0 0 / 9px 9px,
+    var(--night);
+  border: var(--line-heavy) solid var(--ink);
+  border-radius: var(--cut);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.ground {
+  fill: var(--night-ground);
+}
+
+.ground-line {
+  stroke: var(--paper-deep);
+  stroke-width: 2.5;
+}
+
+.ground-ticks line {
+  stroke: var(--paper-deep);
+  stroke-width: 1.5;
+}
+
+.stars circle {
+  fill: var(--card);
+  opacity: 0.45;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding: var(--s7) 0 var(--s6);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--s6);
+  align-items: center;
+}
+
+.hero-copy .title-card {
+  margin: var(--s4) 0 var(--s3);
+  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+}
+
+.hero-sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+  font-style: italic;
+}
+
+.hero-lede {
+  margin-top: var(--s4);
+  max-width: 34em;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  margin-top: var(--s5);
+}
+
+.hero-stage {
+  margin: 0;
+  padding: var(--s4) var(--s3) var(--s3);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.hero-stage::before {
+  /* moon */
+  content: "";
+  position: absolute;
+  right: 9%;
+  top: 12%;
+  width: 54px;
+  aspect-ratio: 1;
+  background: var(--card);
+  border: var(--line) solid var(--ink);
+  border-radius: 50%;
+  box-shadow: inset -12px -6px 0 var(--paper-deep);
+}
+
+.hero-stage .scene-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.stage-caption {
+  --casl: 1;
+  margin-top: var(--s3);
+  font-size: 0.85rem;
+  color: var(--paper-deep);
+}
+
+/* ---------- Chapters ---------- */
+
+.chapter {
+  padding: var(--s7) 0 var(--s5);
+}
+
+.chapter > h2,
+.chapter .shell > h2 {
+  margin: var(--s2) 0 var(--s4);
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+}
+
+.chapter-lede {
+  max-width: 46em;
+  margin-bottom: var(--s5);
+}
+
+.meet-stage {
+  margin: 0 0 var(--s5);
+  padding: var(--s4);
+}
+
+.scene-scroll {
+  overflow-x: auto;
+}
+
+.scene-scroll .scene-svg {
+  display: block;
+  margin-inline: auto;
+}
+
+.scene-label {
+  --mono: 1;
+  --casl: 1;
+  fill: var(--paper-deep);
+  font: 800 12px var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-anchor: middle;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+  gap: var(--s4);
+}
+
+.hud-chip.stat {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 14px;
+}
+
+.hud-chip.stat .num {
+  font-size: 1.45rem;
+}
+
+/* ---------- Lineup ---------- */
+
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3) var(--s5);
+  margin-bottom: var(--s4);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lineup-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s4) var(--s6);
+  margin-bottom: var(--s4);
+  padding-inline: 8px;
+}
+
+.year-scrub {
+  flex: 1 1 280px;
+  min-width: 220px;
+}
+
+.year-scrub .label output {
+  margin-left: 6px;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.year-ticks {
+  position: relative;
+  height: 22px;
+  margin-inline: 12px;
+}
+
+.year-ticks span {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 7px;
+  background: var(--ink);
+}
+
+.year-ticks b {
+  --mono: 1;
+  position: absolute;
+  top: 6px;
+  font-size: 0.75rem;
+  translate: -50% 0;
+}
+
+.ref-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s4);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ref-toggles legend {
+  margin-bottom: 6px;
+}
+
+.ref-toggles .choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-weight: 700;
+}
+
+.lineup-stage {
+  height: clamp(360px, 62vh, 620px);
+  overflow: hidden;
+}
+
+.lineup-scroll {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-color: var(--marigold) var(--night-ground);
+}
+
+.lineup-svg {
+  display: block;
+}
+
+.ruler {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 64px;
+  z-index: 2;
+  pointer-events: none;
+  background: rgb(28 21 16 / 0.82);
+  border-right: 1.5px dashed rgb(234 216 173 / 0.4);
+}
+
+.ruler line {
+  stroke: var(--card);
+  stroke-width: 1.5;
+}
+
+.ruler text {
+  fill: var(--card);
+  font: 800 11px var(--font-ui);
+}
+
+.stage-note {
+  margin: var(--s4) 8px 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  max-width: 70em;
+}
+
+/* Pumpkin drawing */
+.pk {
+  cursor: pointer;
+  outline: none;
+}
+
+.pk-outline {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.pk-rib {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.42;
+}
+
+.pk-shine {
+  fill: var(--card);
+  opacity: 0.75;
+}
+
+.pk-shadow {
+  fill: #000;
+  opacity: 0.35;
+}
+
+.pk-stem {
+  fill: #7a8a3c;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.pk-stem-cut {
+  stroke: #d9cb92;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.pk-ghost {
+  fill: rgb(255 250 238 / 0.03);
+  stroke: var(--paper-deep);
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+  opacity: 0.55;
+}
+
+.pk-hit {
+  fill: transparent;
+  stroke: none;
+  rx: 10px;
+}
+
+.pk-year {
+  fill: var(--card);
+  font: 700 21px var(--font-display);
+  text-anchor: middle;
+}
+
+.pk-weight {
+  --mono: 1;
+  --casl: 1;
+  fill: var(--marigold);
+  font: 900 13px var(--font-ui);
+  text-anchor: middle;
+}
+
+.pk-body,
+.pk-ghostwrap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.pk .pk-ghostwrap {
+  display: none;
+}
+
+.pk.is-ghost .pk-ghostwrap {
+  display: inline;
+}
+
+.pk.is-ghost .pk-body {
+  display: none;
+}
+
+.pk.is-ghost .pk-year,
+.pk.is-ghost .pk-weight {
+  opacity: 0.45;
+}
+
+.pk:hover .pk-hit {
+  fill: rgb(255 250 238 / 0.04);
+}
+
+.pk-sel {
+  fill: none;
+}
+
+.pk.is-selected .pk-sel {
+  fill: var(--cobalt);
+  stroke: var(--card);
+  stroke-width: 2;
+}
+
+.pk.is-selected .pk-weight {
+  fill: var(--card);
+}
+
+.pk.is-selected .pk-year {
+  fill: var(--marigold);
+}
+
+.pk:focus-visible .pk-sel {
+  stroke: var(--marigold);
+  stroke-width: 3;
+  stroke-dasharray: 6 4;
+}
+
+.pk.is-growing .pk-body {
+  animation: grow calc(var(--frame) * 8) steps(8, end) both;
+}
+
+@keyframes grow {
+  from { transform: scale(0.15); }
+  to { transform: scale(1); }
+}
+
+/* Reference silhouettes: simpler and quieter than the pumpkins */
+.ref path,
+.ref ellipse {
+  fill: var(--ref-fill);
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.ref .ref-detail {
+  fill: #a39272;
+}
+
+.ref .ref-glass {
+  fill: #5d4c3c;
+}
+
+.ref-eye {
+  fill: var(--ink);
+}
+
+.ref-tyre {
+  fill: var(--ink);
+  stroke: #6b5a48;
+  stroke-width: 2;
+}
+
+.ref-rim {
+  fill: #8a7863;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.car-layer {
+  opacity: 0.88;
+}
+
+.lineup-svg .pk,
+.lineup-svg .ref-slot {
+  transition: transform calc(var(--frame) * 4) steps(4, end);
+}
+
+.lineup-svg.is-instant .pk,
+.lineup-svg.is-instant .ref-slot {
+  transition: none;
+}
+
+.is-hidden {
+  display: none;
+}
+
+/* ---------- Detail card ---------- */
+
+.detail {
+  margin-top: var(--s6);
+}
+
+.detail-head {
+  display: flex;
+  gap: var(--s5);
+  align-items: center;
+  margin-bottom: var(--s4);
+}
+
+.detail-head .burst {
+  --size: 92px;
+  flex: none;
+}
+
+.detail-head h3 {
+  font-size: 1.6rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s5);
+}
+
+.detail-grid section > * + * {
+  margin-top: 6px;
+}
+
+.detail-weight {
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  line-height: 1;
+}
+
+.detail-lb {
+  font-size: 1.15rem;
+}
+
+.compare-list,
+.method-list {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.compare-list li + li,
+.method-list li + li {
+  margin-top: 4px;
+}
+
+.detail-note {
+  margin-top: var(--s4);
+  padding: var(--s3) var(--s4);
+  background: var(--paper-deep);
+  border-left: var(--line-heavy) solid var(--ink);
+}
+
+.detail-sources {
+  margin-top: var(--s4);
+}
+
+.detail-sources summary {
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.detail-sources ul {
+  margin: 6px 0 0;
+  padding-left: 1.1em;
+}
+
+/* ---------- Step chart ---------- */
+
+.chart-panel {
+  margin: 0;
+}
+
+.chart-scroll {
+  overflow-x: auto;
+}
+
+.step-chart {
+  display: block;
+  width: 100%;
+  min-width: 680px;
+  height: auto;
+}
+
+.step-chart text {
+  font: 600 12px var(--font-ui);
+  fill: var(--ink-soft);
+}
+
+.step-chart .grid line {
+  stroke: var(--rule-soft);
+  stroke-width: 1;
+}
+
+.step-chart .axis-l {
+  text-anchor: end;
+}
+
+.step-chart .grid-lb line {
+  stroke: var(--ink-soft);
+}
+
+.step-chart .axis-title {
+  font-weight: 800;
+  fill: var(--ink);
+}
+
+.step-chart .axis,
+.step-chart .x-ticks line {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.step-chart .x-ticks text {
+  text-anchor: middle;
+}
+
+.step-chart .threshold {
+  stroke: var(--red-deep);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 5;
+}
+
+.step-chart .step-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.step-chart .step-dash {
+  fill: none;
+  stroke: var(--ink-faint);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 6;
+}
+
+.step-chart .pt {
+  fill: var(--card);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.step-chart .pt-featured {
+  fill: var(--pumpkin);
+}
+
+.step-chart .pt-label {
+  --mono: 1;
+  font-size: 11px;
+  font-weight: 800;
+  fill: var(--ink);
+}
+
+.step-chart .fast-band {
+  fill: var(--marigold);
+  opacity: 0.22;
+}
+
+.step-chart .fast-label {
+  font-weight: 800;
+  fill: var(--ink);
+}
+
+.step-chart .axis-break path {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.step-chart .axis-break text {
+  font-size: 11.5px;
+}
+
+.chart-caption {
+  margin-top: var(--s3);
+  font-size: 0.88rem;
+}
+
+/* ---------- Chapter 4, finale, sources ---------- */
+
+.factor-grid,
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s6) var(--s5);
+}
+
+.factor h3,
+.method h3 {
+  margin-bottom: var(--s3);
+}
+
+.factor p + p,
+.method > * + * {
+  margin-top: var(--s3);
+}
+
+.factor-src {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.method ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.method li + li {
+  margin-top: 6px;
+}
+
+.finale {
+  padding-top: var(--s5);
+}
+
+.finale-bubble {
+  max-width: 44em;
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.table-title {
+  margin: var(--s7) 0 var(--s4);
+}
+
+.table-shell {
+  overflow-x: auto;
+}
+
+.table td,
+.table th {
+  vertical-align: top;
+}
+
+.table .num-col {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table tr.is-featured td:first-child {
+  box-shadow: inset 4px 0 0 var(--pumpkin);
+}
+
+.src-list {
+  margin: 0;
+  padding-left: 1.2em;
+  min-width: 14em;
+}
+
+.ref-sources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s4);
+}
+
+.ref-sources ul {
+  margin: 6px 0 0;
+  padding-left: 1.1em;
+}
+
+.dp-footer {
+  margin-top: var(--s7);
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 860px) {
+  .hero-grid,
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: var(--s5);
+  }
+}
+
+@media (max-width: 600px) {
+  .lineup-stage {
+    height: 330px;
+  }
+
+  .ruler {
+    width: 52px;
+  }
+
+  .detail-head {
+    flex-wrap: wrap;
+    gap: var(--s4);
+  }
+
+  .detail-head .burst {
+    --size: 74px;
+  }
+}

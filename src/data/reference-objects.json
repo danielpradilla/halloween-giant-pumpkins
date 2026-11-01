@@ -1,0 +1,43 @@
+{
+  "retrievedOn": "2026-11-01",
+  "human": {
+    "label": "Adult human",
+    "heightM": 1.75,
+    "massKg": 62,
+    "heightBasis": "A round reference height between the global mean for men born in 1996 (171 cm) and the means for men in the UK (177.5 cm) and the US (177.1 cm), all NCD-RisC estimates published by Our World in Data. No source states 1.75 m as an average.",
+    "massBasis": "Global average adult body mass in 2005, 62.0 kg (Walpole et al. 2012, Table 3).",
+    "sources": [
+      { "label": "Our World in Data: Human height (NCD-RisC data)", "url": "https://ourworldindata.org/human-height" },
+      { "label": "Our World in Data: mean male height by country, birth cohort 1996", "url": "https://ourworldindata.org/grapher/average-height-of-men?tab=table&time=1996" },
+      { "label": "Walpole et al. (2012), The weight of nations, BMC Public Health 12:439", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3408371/" }
+    ]
+  },
+  "dog": {
+    "label": "Labrador retriever",
+    "heightM": 0.58,
+    "massKg": 30.6,
+    "heightBasis": "Height at the withers. The AKC standard allows 22.5–24.5 in (57.2–62.2 cm) for dogs and 21.5–23.5 in (54.6–59.7 cm) for bitches; FCI standard 122 gives an ideal of 56–57 cm for males and 54–56 cm for females. 58 cm sits inside both AKC ranges.",
+    "massBasis": "Midpoint of the AKC approximate working-condition weights, 55–80 lb (bitches 55–70 lb, dogs 65–80 lb): 67.5 lb = 30.6 kg.",
+    "sources": [
+      { "label": "AKC Labrador Retriever breed standard (PDF)", "url": "https://images.akc.org/pdf/breeds/standards/LabradorRetriever.pdf" },
+      { "label": "FCI standard no. 122, Labrador Retriever (PDF)", "url": "https://www.fci.be/Nomenclature/Standards/122g08-en.pdf" }
+    ]
+  },
+  "car": {
+    "label": "Volkswagen Golf",
+    "model": "Volkswagen Golf 8 1.5 eTSI 110 kW (150 PS), 2020",
+    "lengthM": 4.284,
+    "heightM": 1.491,
+    "widthM": 1.789,
+    "wheelbaseM": 2.619,
+    "frontOverhangM": 0.9,
+    "wheelDiameterM": 0.632,
+    "curbWeightKg": 1366,
+    "dimensionsBasis": "Length, height, width, wheelbase, kerb weight and standard tyre size (205/55 R 16) from Volkswagen's August 2020 technical data. Tyre diameter is calculated from the tyre size: 406.4 mm rim + 2 × 112.75 mm sidewall = 632 mm. Volkswagen does not publish how the 1,665 mm of total overhang is split; the drawing puts 0.90 m at the front.",
+    "massBasis": "Kerb weight 1,366 kg as listed by Volkswagen for the 1.5 eTSI. The document does not define whether kerb weight includes a driver.",
+    "sources": [
+      { "label": "Volkswagen AG, Golf eTSI / eHybrid / GTE technical data, August 2020 (PDF)", "url": "https://uploads.vw-mms.de/system/production/files/vwn/016/289/file/7679ef3a5204d765bb1980d8131c293751ebffdb/EN_Golf_Hybride_Specifications.pdf?1598435669" },
+      { "label": "Volkswagen UK, Golf dimensions (current UK model, for comparison)", "url": "https://www.volkswagen.co.uk/en/new/golf/golf-dimensions.html" }
+    ]
+  }
+}

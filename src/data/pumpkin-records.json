@@ -1,0 +1,1051 @@
+{
+  "dataLastUpdated": "2026-11-01",
+  "statusLabels": {
+    "guinness-world-record": "Guinness World Records title",
+    "gpc-world-record": "World record in the GPC history",
+    "historical-record": "Historically reported record"
+  },
+  "silhouetteModel": {
+    "coefficientNPerM3": 2070,
+    "exponent": 3,
+    "fittedMaxDiameterM": 1.4,
+    "heightToWidth": 0.6,
+    "fitSource": {
+      "label": "Hu, Richards and Alexeev (2011), Modeling the growth of giant pumpkins, Int. J. Non-Linear Mechanics 46:637–647 (author PDF)",
+      "url": "https://hu.gatech.edu/Publications/Hu11-pumpkin.pdf"
+    },
+    "fitNote": "Weight–diameter fit W = 2070·L³ (W in newtons, L in metres; 49 pumpkins, R² = 0.97), measured on pumpkins up to about 1.4 m across. Record pumpkins wider than that are extrapolations.",
+    "heightNote": "No record pumpkin has a published height. Hu et al. report that small pumpkins are close to spherical (height/width ≈ 0.9) and that giants flatten by up to 50%. The drawings use 0.6 for every pumpkin; this is an illustrative choice, not a measurement."
+  },
+  "records": [
+    {
+      "id": "1900-warnock",
+      "year": 1900,
+      "date": null,
+      "weightLb": 400,
+      "weightKg": 181.4,
+      "weightKgBasis": "converted",
+      "grower": "William Warnock",
+      "country": "Canada",
+      "place": "Goderich, Ontario",
+      "event": "Paris World's Fair (Exposition Universelle)",
+      "status": "historical-record",
+      "featured": true,
+      "note": "Weighed before any record-keeping body for giant pumpkins existed. The GPC history calls it the first world record.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Elizabeth Royte, 'Pumpkin v. Pumpkin', Outside (1997)",
+          "url": "https://www.outsideonline.com/health/nutrition/pumpkin-v-pumpkin/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1904-warnock",
+      "year": 1904,
+      "date": null,
+      "weightLb": 403,
+      "weightKg": 182.8,
+      "weightKgBasis": "converted",
+      "grower": "William Warnock",
+      "country": "Canada",
+      "place": "Goderich, Ontario",
+      "event": "St. Louis World's Fair",
+      "status": "historical-record",
+      "featured": false,
+      "note": "The GPC history dates it 1904 at the St. Louis World's Fair; Outside (1997) and Oregon State University Extension date Warnock's improved record to 1903.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Elizabeth Royte, 'Pumpkin v. Pumpkin', Outside (1997)",
+          "url": "https://www.outsideonline.com/health/nutrition/pumpkin-v-pumpkin/"
+        },
+        {
+          "label": "Oregon State University Extension, How to grow a giant pumpkin",
+          "url": "https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1976-ford",
+      "year": 1976,
+      "date": null,
+      "weightLb": 451,
+      "weightKg": 204.6,
+      "weightKgBasis": "converted",
+      "grower": "Bob Ford",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "note": "The GPC history calls it 'the first to break the world record in modern time'. Wikipedia also lists a 453 lb pumpkin by Edgar Van Wyck (Canada) in 1976; the GPC history does not.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Wikipedia, Giant pumpkin: world record table (country only)",
+          "url": "https://en.wikipedia.org/wiki/Giant_pumpkin"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1980-dill",
+      "year": 1980,
+      "date": null,
+      "weightLb": 459,
+      "weightKg": 208.2,
+      "weightKgBasis": "converted",
+      "grower": "Howard Dill",
+      "country": "Canada",
+      "place": "Nova Scotia",
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Southern New England Giant Pumpkin Growers, Pumpkins and squashes from the 80s (PDF)",
+          "url": "http://www.sngpg.com/pdfs/Pumpkins_Squashes%20_from_the_80s.pdf"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1981-dill",
+      "year": 1981,
+      "date": null,
+      "weightLb": 493.5,
+      "weightKg": 223.8,
+      "weightKgBasis": "converted",
+      "grower": "Howard Dill",
+      "country": "Canada",
+      "place": "Nova Scotia",
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": true,
+      "note": "Dill bred the Atlantic Giant variety. Oregon State University Extension: 'He later entered the Guinness World Records book in 1981 with a 493.5-pound pumpkin.'",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Southern New England Giant Pumpkin Growers, Pumpkins and squashes from the 80s (PDF)",
+          "url": "http://www.sngpg.com/pdfs/Pumpkins_Squashes%20_from_the_80s.pdf"
+        },
+        {
+          "label": "Oregon State University Extension, How to grow a giant pumpkin",
+          "url": "https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1984-gallagher",
+      "year": 1984,
+      "date": null,
+      "weightLb": 612,
+      "weightKg": 277.6,
+      "weightKgBasis": "converted",
+      "grower": "Norm Gallagher",
+      "country": "United States",
+      "place": "Sequim, Washington",
+      "event": "Half Moon Bay weigh-off, California (as described by the SNGPG history)",
+      "status": "gpc-world-record",
+      "featured": true,
+      "note": "First pumpkin over 600 lb (GPC history).",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Southern New England Giant Pumpkin Growers, Pumpkins and squashes from the 80s (PDF)",
+          "url": "http://www.sngpg.com/pdfs/Pumpkins_Squashes%20_from_the_80s.pdf"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1986-gancarz",
+      "year": 1986,
+      "date": null,
+      "weightLb": 671,
+      "weightKg": 304.4,
+      "weightKgBasis": "converted",
+      "grower": "Robert Gancarz",
+      "country": null,
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1989-thomson",
+      "year": 1989,
+      "date": null,
+      "weightLb": 755,
+      "weightKg": 342.5,
+      "weightKgBasis": "converted",
+      "grower": "Gordon Thomson",
+      "country": "Canada",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": true,
+      "note": "First pumpkin over 700 lb (GPC history). The SNGPG history spells the name Thompson.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Wikipedia, Giant pumpkin: world record table (country only)",
+          "url": "https://en.wikipedia.org/wiki/Giant_pumpkin"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1990-gancarz",
+      "year": 1990,
+      "date": null,
+      "weightLb": 816.5,
+      "weightKg": 370.4,
+      "weightKgBasis": "converted",
+      "grower": "Ed Gancarz",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Wikipedia, Giant pumpkin: world record table (country only)",
+          "url": "https://en.wikipedia.org/wiki/Giant_pumpkin"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1992-holland",
+      "year": 1992,
+      "date": null,
+      "weightLb": 827,
+      "weightKg": 375.1,
+      "weightKgBasis": "converted",
+      "grower": "Joel Holland",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Wikipedia, Giant pumpkin: world record table (country only)",
+          "url": "https://en.wikipedia.org/wiki/Giant_pumpkin"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1993-black",
+      "year": 1993,
+      "date": null,
+      "weightLb": 884,
+      "weightKg": 401.0,
+      "weightKgBasis": "converted",
+      "grower": "Donald Black",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "note": "Outside (1997) reports that the 1994 Guinness book listed Norm Craven's 836 lb pumpkin instead, after the World Pumpkin Confederation reported it.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "Elizabeth Royte, 'Pumpkin v. Pumpkin', Outside (1997)",
+          "url": "https://www.outsideonline.com/health/nutrition/pumpkin-v-pumpkin/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1994-bax",
+      "year": 1994,
+      "date": null,
+      "weightLb": 990,
+      "weightKg": 449.1,
+      "weightKgBasis": "converted",
+      "grower": "Herman Bax",
+      "country": "Canada",
+      "place": "Brockville, Ontario",
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "Elizabeth Royte, 'Pumpkin v. Pumpkin', Outside (1997)",
+          "url": "https://www.outsideonline.com/health/nutrition/pumpkin-v-pumpkin/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1996-zehr",
+      "year": 1996,
+      "date": null,
+      "weightLb": 1061,
+      "weightKg": 481.3,
+      "weightKgBasis": "converted",
+      "grower": "Nathan and Paula Zehr",
+      "country": "United States",
+      "place": "Lowville, New York",
+      "event": "World Pumpkin Confederation weigh-off, Collins, New York",
+      "status": "gpc-world-record",
+      "featured": true,
+      "note": "First world record over 1,000 lb (GPC history). Not on the GPC's list of Guinness record pumpkins.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Elizabeth Royte, 'Pumpkin v. Pumpkin', Outside (1997)",
+          "url": "https://www.outsideonline.com/health/nutrition/pumpkin-v-pumpkin/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1998-burke",
+      "year": 1998,
+      "date": null,
+      "weightLb": 1092,
+      "weightKg": 495.3,
+      "weightKgBasis": "converted",
+      "grower": "Gary Burke",
+      "country": "Canada",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Wikipedia, Giant pumpkin: world record table (country only)",
+          "url": "https://en.wikipedia.org/wiki/Giant_pumpkin"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "1999-checkon",
+      "year": 1999,
+      "date": null,
+      "weightLb": 1131,
+      "weightKg": 513.0,
+      "weightKgBasis": "converted",
+      "grower": "Gerry Checkon",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2000-stelts",
+      "year": 2000,
+      "date": null,
+      "weightLb": 1140,
+      "weightKg": 517.1,
+      "weightKgBasis": "converted",
+      "grower": "Dave Stelts",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2000 Dave Stelts world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=95&gid=9"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2001-emmons",
+      "year": 2001,
+      "date": null,
+      "weightLb": 1262,
+      "weightKg": 572.4,
+      "weightKgBasis": "converted",
+      "grower": "Geneva Emmons",
+      "country": "United States",
+      "place": "Sammamish, Washington",
+      "event": "GPC weigh-off, Canby, Oregon",
+      "status": "gpc-world-record",
+      "featured": true,
+      "note": "First pumpkin over 1,200 lb (GPC history).",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "Pacific Northwest Giant Pumpkin Growers, past champions",
+          "url": "https://pnwgpg.com/past-champions"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2002-houghton",
+      "year": 2002,
+      "date": null,
+      "weightLb": 1337.6,
+      "weightKg": 606.7,
+      "weightKgBasis": "converted",
+      "grower": "Charlie Houghton",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2002 Charlie Houghton world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=94&gid=24"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2003-daletas",
+      "year": 2003,
+      "date": null,
+      "weightLb": 1385,
+      "weightKg": 628.2,
+      "weightKgBasis": "converted",
+      "grower": "Steve Daletas",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "note": "The GPC history and BigPumpkins.com list Steve Daletas (1,385 lb) for 2003; the GPC's Guinness list names Bryan Dueck and Drew Papez (1,373 lb) instead.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "BigPumpkins.com, 2003 Steve Daletas world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=113&gid=30"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2004-eaton",
+      "year": 2004,
+      "date": null,
+      "weightLb": 1446,
+      "weightKg": 655.9,
+      "weightKgBasis": "converted",
+      "grower": "Al Eaton",
+      "country": "Canada",
+      "place": "Richmond, Ontario",
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2004 Al Eaton world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=127&gid=41"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2005-checkon",
+      "year": 2005,
+      "date": null,
+      "weightLb": 1469,
+      "weightKg": 666.3,
+      "weightKgBasis": "converted",
+      "grower": "Larry Checkon",
+      "country": "United States",
+      "place": null,
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2005 Larry Checkon world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=137&gid=47"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2006-wallace",
+      "year": 2006,
+      "date": "2006-10-07",
+      "weightLb": 1502,
+      "weightKg": 681.3,
+      "weightKgBasis": "reported",
+      "grower": "Ron Wallace",
+      "country": "United States",
+      "place": "Greene, Rhode Island",
+      "event": "Frerichs Farm GPC weigh-off, Warren, Rhode Island",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "Guinness World Records: 'the first pumpkin to officially exceed the 1,500-lb threshold'.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "BigPumpkins.com, 2006 Ron Wallace world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=161&gid=49"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2007-jutras",
+      "year": 2007,
+      "date": null,
+      "weightLb": 1689,
+      "weightKg": 766.1,
+      "weightKgBasis": "converted",
+      "grower": "Joe Jutras",
+      "country": "United States",
+      "place": "North Scituate, Rhode Island",
+      "event": null,
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2007 Joe Jutras world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=162&gid=50"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2009-harp",
+      "year": 2009,
+      "date": null,
+      "weightLb": 1725,
+      "weightKg": 782.4,
+      "weightKgBasis": "converted",
+      "grower": "Christy and Nick Harp",
+      "country": "United States",
+      "place": "Massillon, Ohio",
+      "event": "OVGPG GPC weigh-off",
+      "status": "gpc-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Great Pumpkin Commonwealth, giant pumpkin world-record history (PDF)",
+          "url": "https://gpc1.org/wp-content/uploads/2020/02/PumpkinHistory.pdf"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2009 Christy Harp world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=166&gid=51"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2010-stevens",
+      "year": 2010,
+      "date": "2010-10-09",
+      "weightLb": 1810.5,
+      "weightKg": 821.23,
+      "weightKgBasis": "reported",
+      "grower": "Chris Stevens",
+      "country": "United States",
+      "place": "New Richmond, Wisconsin",
+      "event": "Stillwater Harvestfest and Giant Pumpkin Weigh-off, Stillwater, Minnesota",
+      "status": "guinness-world-record",
+      "featured": true,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "BigPumpkins.com, 2010 Chris Stevens world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=170&gid=53"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2011-bryson",
+      "year": 2011,
+      "date": "2011-10-15",
+      "weightLb": 1818.5,
+      "weightKg": 824.86,
+      "weightKgBasis": "reported",
+      "grower": "Jim and Kelsey Bryson",
+      "country": "Canada",
+      "place": "Ormstown, Quebec",
+      "event": null,
+      "status": "guinness-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "BigPumpkins.com, 2011 Jim and Kelsey Bryson world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=173&gid=55"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2012-wallace",
+      "year": 2012,
+      "date": "2012-09-28",
+      "weightLb": 2009,
+      "weightKg": 911.27,
+      "weightKgBasis": "reported",
+      "grower": "Ron Wallace",
+      "country": "United States",
+      "place": "Greene, Rhode Island",
+      "event": "Topsfield Fair, Massachusetts",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "First pumpkin over 2,000 lb (Guinness World Records).",
+      "dimensions": {
+        "ottIn": 458,
+        "ottSource": {
+          "label": "BigPumpkins.com, 2012 Ron Wallace photo caption 'OTT 458 inches'",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=175&gid=57"
+        }
+      },
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        },
+        {
+          "label": "BigPumpkins.com, 2012 Ron Wallace world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=175&gid=57"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2013-mathison",
+      "year": 2013,
+      "date": "2013-10-12",
+      "weightLb": 2032,
+      "weightKg": 921.7,
+      "weightKgBasis": "reported",
+      "grower": "Tim Mathison",
+      "country": "United States",
+      "place": "Napa, California",
+      "event": "Uesugi Farms Pumpkin Park weigh-off, Morgan Hill, California",
+      "status": "guinness-world-record",
+      "featured": false,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "BigPumpkins.com, 2013 Tim Mathison world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=179&gid=58"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2014-meier",
+      "year": 2014,
+      "date": "2014-10-12",
+      "weightLb": 2323.7,
+      "weightKg": 1054,
+      "weightKgBasis": "reported",
+      "grower": "Beni Meier",
+      "country": "Switzerland",
+      "place": "Pfungen",
+      "event": "European Championship Pumpkin Weigh-off, Germany",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "First pumpkin over 1,000 kg.",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "BigPumpkins.com, 2014 Beni Meier world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=186&gid=62"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2016-willemijns",
+      "year": 2016,
+      "date": "2016-10-09",
+      "weightLb": 2624.6,
+      "weightKg": 1190.49,
+      "weightKgBasis": "reported",
+      "grower": "Mathias Willemijns",
+      "country": "Belgium",
+      "place": "East Flanders",
+      "event": "European Championship Pumpkin Weigh-off, Germany",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "Longest-held record: 9 October 2016 to 26 September 2021 (Guinness World Records).",
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        },
+        {
+          "label": "BigPumpkins.com, 2016 Mathias Willemijns world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=194&gid=69"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2021-cutrupi",
+      "year": 2021,
+      "date": "2021-09-26",
+      "weightLb": 2702.9,
+      "weightKg": 1226,
+      "weightKgBasis": "reported",
+      "grower": "Stefano Cutrupi",
+      "country": "Italy",
+      "place": "Radda in Chianti, Tuscany",
+      "event": "10th Campionato della Zucca, Peccioli, near Pisa",
+      "status": "guinness-world-record",
+      "featured": true,
+      "dimensions": {},
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Monster pumpkin heavier than a small car' (October 2021)",
+          "url": "https://www.guinnessworldrecords.com/news/2021/10/monster-pumpkin-heavier-than-a-small-car-breaks-world-record-680783"
+        },
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "BigPumpkins.com, 2021 Stefano Cutrupi world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=205&gid=79"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2023-gienger",
+      "year": 2023,
+      "date": "2023-10-09",
+      "weightLb": 2749,
+      "weightKg": 1246.9,
+      "weightKgBasis": "reported",
+      "grower": "Travis Gienger",
+      "country": "United States",
+      "place": "Anoka, Minnesota",
+      "event": "Safeway World Championship Pumpkin Weigh-Off, Half Moon Bay, California",
+      "status": "guinness-world-record",
+      "featured": true,
+      "dimensions": {
+        "circumferenceCm": 642.6,
+        "circumferenceSource": {
+          "label": "Guinness World Records, 'Smashing pumpkin records' (October 2025)",
+          "url": "https://www.guinnessworldrecords.com/news/2025/10/smashing-pumpkin-records-british-twins-first-to-bring-biggest-pumpkin-title-to-uk"
+        }
+      },
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Good gourd!' (October 2023), with dated record history",
+          "url": "https://www.guinnessworldrecords.com/news/2023/10/good-gourd-american-pumpkin-as-heavy-as-two-cows-squashes-all-past-rivals-759626"
+        },
+        {
+          "label": "Guinness World Records, 'Smashing pumpkin records' (October 2025)",
+          "url": "https://www.guinnessworldrecords.com/news/2025/10/smashing-pumpkin-records-british-twins-first-to-bring-biggest-pumpkin-title-to-uk"
+        },
+        {
+          "label": "BigPumpkins.com, 2023 Travis Gienger world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=213&gid=86"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2025-paton",
+      "year": 2025,
+      "date": "2025-10-06",
+      "weightLb": 2819.3,
+      "weightKg": 1278.8,
+      "weightKgBasis": "reported",
+      "grower": "Ian and Stuart Paton",
+      "country": "United Kingdom",
+      "place": "Lymington, Hampshire",
+      "event": "Wargrave Nursery Giant Vegetable Weigh-Off, Wargrave, Berkshire",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "Nicknamed 'Muggle'. Guinness gives 2,819 lb 4 oz and the ratification date 6 October 2025; BigPumpkins.com dates the weigh-off 4 October 2025. Still the largest pumpkin by circumference.",
+      "dimensions": {
+        "circumferenceCm": 649.8,
+        "circumferenceSource": {
+          "label": "Guinness World Records, 'All hail Pumpking Paton' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/all-hail-pumpking-paton-british-grower-beats-his-own-record-with-giant-gourd"
+        }
+      },
+      "sources": [
+        {
+          "label": "Guinness World Records, 'Smashing pumpkin records' (October 2025)",
+          "url": "https://www.guinnessworldrecords.com/news/2025/10/smashing-pumpkin-records-british-twins-first-to-bring-biggest-pumpkin-title-to-uk"
+        },
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        },
+        {
+          "label": "Great Pumpkin Commonwealth, Guinness World Record pumpkins",
+          "url": "https://gpc1.org/gpc-champions/guinness-records/guinness-pumpkins/"
+        },
+        {
+          "label": "BigPumpkins.com, 2025 Ian and Stewie Paton world record",
+          "url": "https://www.bigpumpkins.com/ViewArticle.asp?id=217&gid=90"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2026-paton",
+      "year": 2026,
+      "date": "2026-10-03",
+      "weightLb": 2856.8,
+      "weightKg": 1295.8,
+      "weightKgBasis": "reported",
+      "grower": "Ian Paton",
+      "country": "United Kingdom",
+      "place": "Hampshire",
+      "event": "Wargrave Weigh-Off, Wargrave, Berkshire",
+      "status": "guinness-world-record",
+      "featured": false,
+      "note": "Nicknamed 'Bagheera'. Guinness gives 2,856 lb 12.8 oz. Beaten seven days later.",
+      "dimensions": {
+        "circumferenceCm": 596.9,
+        "circumferenceSource": {
+          "label": "Guinness World Records, 'All hail Pumpking Paton' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/all-hail-pumpking-paton-british-grower-beats-his-own-record-with-giant-gourd"
+        }
+      },
+      "sources": [
+        {
+          "label": "Guinness World Records, 'All hail Pumpking Paton' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/all-hail-pumpking-paton-british-grower-beats-his-own-record-with-giant-gourd"
+        },
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    },
+    {
+      "id": "2026-wallace",
+      "year": 2026,
+      "date": "2026-10-10",
+      "weightLb": 3156,
+      "weightKg": 1431.5,
+      "weightKgBasis": "reported",
+      "grower": "Ron Wallace",
+      "country": "United States",
+      "place": "Rhode Island",
+      "event": "Southern New England Giant Pumpkin Weigh Off, Frerichs Farm, Warren, Rhode Island",
+      "status": "guinness-world-record",
+      "featured": true,
+      "note": "First pumpkin over 3,000 lb (Guinness World Records). Wallace's third world record.",
+      "dimensions": {
+        "circumferenceCm": 640,
+        "circumferenceSource": {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        }
+      },
+      "sources": [
+        {
+          "label": "Guinness World Records, Heaviest pumpkin (record page)",
+          "url": "https://www.guinnessworldrecords.com/world-records/heaviest-pumpkin"
+        },
+        {
+          "label": "Guinness World Records, 'Pumpkinpalooza' (October 2026)",
+          "url": "https://www.guinnessworldrecords.com/news/2026/10/pumpkinpalooza-how-the-worlds-biggest-pumpkin-record-fell-twice-in-one-week"
+        }
+      ],
+      "verifiedOn": "2026-11-01"
+    }
+  ]
+}

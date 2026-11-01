@@ -1,0 +1,13 @@
+{
+  "name": "halloween-giant-pumpkins",
+  "version": "1.0.0",
+  "description": "The Giant Pumpkin Arms Race: an illustrated, to-scale history of the world's heaviest pumpkins.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "validate": "node scripts/validate-data.mjs",
+    "serve": "python3 -m http.server 8795 --bind 127.0.0.1",
+    "deploy": "node scripts/validate-data.mjs && sh scripts/deploy.sh"
+  }
+}
