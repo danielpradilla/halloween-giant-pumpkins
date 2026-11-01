@@ -410,7 +410,18 @@ input[type="range"] {
 }
 
 .ref.is-hidden {
-  opacity: 0;
+  display: none;
+}
+
+/* Pumpkins and references slide when the selection moves the reference block. */
+.lineup-svg .pk,
+.lineup-svg .ref {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lineup-svg.is-instant .pk,
+.lineup-svg.is-instant .ref {
+  transition: none;
 }
 
 .pk {
@@ -628,6 +639,37 @@ input[type="range"] {
 .step-chart .pt-featured {
   fill: var(--blue);
   stroke: var(--blue);
+}
+
+.step-chart .step-ahead {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1.5;
+}
+
+.step-chart .reached-clip {
+  transition: width 0.3s ease;
+}
+
+.step-chart .pt,
+.step-chart .pt-label {
+  transition: opacity 0.25s ease;
+}
+
+.step-chart .is-ahead {
+  opacity: 0.25;
+}
+
+.step-chart .cursor {
+  stroke: var(--blue);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.step-chart .pt-current {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 2;
 }
 
 .step-chart .pt-label {

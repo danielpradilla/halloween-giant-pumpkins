@@ -1,6 +1,6 @@
 # The Giant Pumpkin Arms Race
 
-A to-scale history of the world record for the heaviest pumpkin. One panorama shows a 1.75 m adult, a Labrador retriever and a 2020 Volkswagen Golf once, followed by the silhouette of every pumpkin that set the record since 1900, in year order, all at the same scale. The page also has a step chart of the record weight over time and a sources and methodology section.
+A to-scale history of the world record for the heaviest pumpkin. One panorama shows the silhouette of every pumpkin that set the record since 1900, in year order, with a 1.75 m adult, a Labrador retriever and a 2020 Volkswagen Golf standing beside the selected pumpkin, all at the same scale. The page also has a step chart of the record weight over time and a sources and methodology section.
 
 Live page: <https://www.danielpradilla.info/projects/halloween-giant-pumpkins/>
 
@@ -20,9 +20,9 @@ The weights, dates, growers and events are verified records with a source link f
 
 ## What the page shows
 
-1. Lineup (Bigger. Heavier. Stranger.): the adult, the Labrador and the Golf, then all record pumpkins on one ground line. Pumpkins are evenly spaced in year order; the spacing does not represent time. The slider steps through the records one per notch, so it moves evenly even where years jump (1904 to 1976); later records show as dashed outlines. Checkboxes hide or show each reference object. The stage fits the screen width, and scrolls sideways below 22 px per metre so silhouettes stay legible on phones.
+1. Lineup (Bigger. Heavier. Stranger.): all record pumpkins on one ground line, with the adult, the Labrador and the Golf to the right of the selected pumpkin. Pumpkins are evenly spaced in year order; the spacing does not represent time. The slider steps through the records one per notch, so it moves evenly even where years jump (1904 to 1976); later records show as dashed outlines. As the selection changes, the references and the later pumpkins slide to keep the references beside it. Checkboxes hide or show each reference object, and the gap closes when one is hidden. The stage fits the screen width, and scrolls sideways below 22 px per metre so silhouettes stay legible on phones.
 2. Selected record: weight in kilograms and pounds, comparisons with the reference masses, event, drawn size and sources. It opens on the current record.
-3. The arms race: a step chart of all record steps. The 72 years between 1904 and 1976 with no new record are drawn as a marked axis break.
+3. The arms race: a step chart of all record steps. It follows the slider: the line is solid up to the record reached, later records fade, and a ring marks the selected record. The 72 years between 1904 and 1976 with no new record are drawn as a marked axis break.
 4. How big can they get?: breeding, genetics, cultivation, water and nutrients, and structural limits, each with sources.
 5. Sources & methodology: status definitions, the size model, reference assumptions and a table of every record with its sources.
 

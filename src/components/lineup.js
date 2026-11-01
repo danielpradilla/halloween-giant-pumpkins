@@ -1,6 +1,7 @@
-// The lineup: the adult, the Labrador and the Golf once on the left, then every record pumpkin in year order on
-// one ground line at one physical scale. Horizontal spacing is by order, not by time. The slider steps through the
-// records one at a time (evenly, whatever the gap in years); selecting a pumpkin fills the detail card.
+// The lineup: every record pumpkin in year order on one ground line at one physical scale, with the adult, the
+// Labrador and the Golf standing to the right of the selected pumpkin. Horizontal spacing is by order, not by time.
+// The slider steps through the records one at a time (evenly, whatever the gap in years); the references and the
+// later pumpkins slide to follow it. Each change is announced as a "recordchange" event on the section.
 import { pumpkinPath } from "./pumpkin.js";
 import { humanSvg, dogSvg, carSvg } from "./silhouettes.js";
 import { asPublished, estimateSize, fmt } from "../lib/model.js";
@@ -29,22 +30,39 @@ export function mountLineup(root, { data, refs, steps }) {
   // upto: index of the latest record reached on the timeline (two records can share a year).
   const state = { upto: steps.length - 1, selected: last.id, s: 0 };
 
-  // Layout in metres, independent of screen size.
-  const human = humanSvg(refs.human, 1), dog = dogSvg(refs.dog, 1), car = carSvg(refs.car, 1);
-  const refX = { human: 0.15 + human.widthM / 2 };
-  refX.dog = refX.human + human.widthM / 2 + 0.2 + dog.widthM / 2;
-  refX.car = refX.dog + dog.widthM / 2 + 0.25 + car.widthM / 2;
-  const pkX = new Map();
-  let x = refX.car + car.widthM / 2 + 0.9 + sizes.get(first.id).widthM / 2;
+  // Layout in metres, independent of screen size. Pumpkins have base positions in year order; the reference
+  // objects stand to the right of the selected pumpkin, and every later pumpkin shifts right to make room.
+  const refW = { human: humanSvg(refs.human, 1).widthM, dog: dogSvg(refs.dog, 1).widthM, car: carSvg(refs.car, 1).widthM };
+  const REF_GAPS = { human: 0.3, dog: 0.2, car: 0.25 }; // gap before each reference, metres
+  const base = [];
+  let x = 0.3 + sizes.get(first.id).widthM / 2;
   steps.forEach((r, i) => {
     if (i > 0) {
       const a = sizes.get(steps[i - 1].id).widthM, b = sizes.get(r.id).widthM;
       x += Math.max(((a + b) / 2) * OVERLAP, MIN_STEP_M);
     }
-    pkX.set(r.id, x);
+    base.push(x);
   });
-  const totalM = x + sizes.get(last.id).widthM / 2 + 0.2;
+
+  function placeFor(k, shown) {
+    const w = (i) => sizes.get(steps[i].id).widthM;
+    const ref = {};
+    let edge = base[k] + w(k) / 2;
+    for (const key of ["human", "dog", "car"]) {
+      if (!shown[key]) continue;
+      ref[key] = edge + REF_GAPS[key] + refW[key] / 2;
+      edge = ref[key] + refW[key] / 2;
+    }
+    const shift = k < steps.length - 1 && edge > base[k] + w(k) / 2 ? Math.max(edge + 0.6 + w(k + 1) / 2 - base[k + 1], 0) : 0;
+    const pk = base.map((b, i) => (i > k ? b + shift : b));
+    return { pk, ref, endM: Math.max(pk.at(-1) + w(steps.length - 1) / 2, edge) + 0.3 };
+  }
+
+  const allShown = { human: true, dog: true, car: true };
+  const totalM = Math.max(...steps.map((_, k) => placeFor(k, allShown).endM));
   const tallestM = Math.max(refs.human.heightM, refs.car.heightM, ...[...sizes.values()].map((z) => z.heightM * 1.2));
+  const shown = () => Object.fromEntries(els.toggles.map((t) => [t.dataset.ref, t.checked]));
+  const selIndex = () => steps.findIndex((r) => r.id === state.selected);
 
   els.range.min = 0;
   els.range.max = steps.length - 1;
@@ -53,9 +71,9 @@ export function mountLineup(root, { data, refs, steps }) {
     const avail = els.scroll.clientWidth - GUTTER_L - GUTTER_R;
     const s = Math.max(avail / totalM, MIN_PX_PER_M);
     state.s = s;
-    const groundY = TOP_PAD + Math.ceil((tallestM + 0.15) * s);
+    state.groundY = TOP_PAD + Math.ceil((tallestM + 0.15) * s);
+    const groundY = state.groundY;
     const H = groundY + LABEL_BAND, W = Math.ceil(totalM * s) + GUTTER_L + GUTTER_R;
-    const X = (m) => (GUTTER_L + m * s).toFixed(1);
 
     const ruler = [];
     for (let m = 0; m <= tallestM + 0.01; m += 0.5) {
@@ -66,18 +84,17 @@ export function mountLineup(root, { data, refs, steps }) {
     }
 
     // Labels sit above each silhouette, where neighbouring references never overlap.
-    const refShape = (key, fn, label) => {
-      const g = fn(refs[key], s);
-      return `<g class="ref ref-${key}" data-ref-shape="${key}" transform="translate(${X(refX[key])} ${groundY})">
-        <path d="${g.d}"/>${s >= 30 ? `<text class="ref-label" y="${(-refs[key].heightM * s - 6).toFixed(1)}">${label}</text>` : ""}</g>`;
-    };
+    const refShape = (key, fn, label) =>
+      `<g class="ref ref-${key}" data-ref-shape="${key}"><path d="${fn(refs[key], s).d}"/>${
+        s >= 30 ? `<text class="ref-label" y="${(-refs[key].heightM * s - 6).toFixed(1)}">${label}</text>` : ""
+      }</g>`;
 
     // Right-to-left so smaller, earlier pumpkins overlap the larger ones behind them.
     const pumpkins = steps.slice().reverse().map((r) => {
       const { widthM, heightM } = sizes.get(r.id);
       const d = pumpkinPath({ seed: r.id, w: widthM * s, h: heightM * s });
       const half = (widthM * s) / 2;
-      return `<g class="pk" data-id="${r.id}" transform="translate(${X(pkX.get(r.id))} ${groundY})" role="button" tabindex="-1">
+      return `<g class="pk" data-id="${r.id}" role="button" tabindex="-1">
         <rect class="pk-hit" x="${(-Math.min(half, MIN_STEP_M * s / 2)).toFixed(1)}" y="0" width="${Math.min(2 * half, MIN_STEP_M * s).toFixed(1)}" height="${LABEL_BAND}"/>
         <path class="pk-ghost" d="${d}"/>
         <path class="pk-shape" d="${d}"/>
@@ -89,46 +106,60 @@ export function mountLineup(root, { data, refs, steps }) {
 
     els.scroll.innerHTML = `<svg class="lineup-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-labelledby="lineup-title">
       <g class="ruler" aria-hidden="true"><line x1="${GUTTER_L - 2}" x2="${GUTTER_L - 2}" y1="${groundY}" y2="${(groundY - Math.floor(tallestM / 0.5) * 0.5 * s).toFixed(1)}"/>${ruler.join("")}</g>
-      <g aria-hidden="true">
-        ${refShape("car", carSvg, "VW Golf 8")}
-        ${refShape("dog", dogSvg, "Labrador")}
-        ${refShape("human", humanSvg, "Adult")}
-      </g>
       ${pumpkins.join("")}
+      <g aria-hidden="true">
+        ${refShape("human", humanSvg, "Adult")}
+        ${refShape("dog", dogSvg, "Labrador")}
+        ${refShape("car", carSvg, "VW Golf 8")}
+      </g>
       <line class="ground-line" x1="${GUTTER_L - 2}" x2="${W}" y1="${groundY}" y2="${groundY}"/>
     </svg>`;
     els.note.textContent =
       `Scale: 1 m = ${s.toFixed(0)} px on this screen, the same for every object. Pumpkins are in year order, evenly spaced; the gaps do not represent time. ` +
+      `The adult, the Labrador and the Golf stand beside the selected pumpkin. ` +
       `Weights are verified. Pumpkin widths come from a measured circumference where Guinness published one, otherwise from a published weight–diameter fit; heights are illustrative.`;
     update({ instant: true });
   }
 
   function update({ instant = false } = {}) {
     const svg = els.scroll.querySelector("svg");
+    const { s, groundY } = state;
     svg.classList.toggle("is-instant", instant);
+    const k = selIndex();
+    const show = shown();
+    const place = placeFor(k, show);
+    const at = (el, m) => (el.style.transform = `translate(${(GUTTER_L + m * s).toFixed(1)}px, ${groundY}px)`);
     steps.forEach((r, i) => {
       const g = svg.querySelector(`.pk[data-id="${r.id}"]`);
       const grown = i <= state.upto;
-      const sel = r.id === state.selected;
+      const sel = i === k;
+      at(g, place.pk[i]);
       g.classList.toggle("is-future", !grown);
       g.classList.toggle("is-selected", sel);
       g.setAttribute("aria-pressed", String(sel));
       g.setAttribute("tabindex", sel ? "0" : "-1");
       g.setAttribute("aria-label", `${r.year}, ${r.grower}, ${fmt(r.weightKg, 1)} kilograms${grown ? "" : ", not yet reached on the timeline"}`);
     });
+    for (const key of ["human", "dog", "car"]) {
+      const g = svg.querySelector(`[data-ref-shape="${key}"]`);
+      g.classList.toggle("is-hidden", !show[key]);
+      if (show[key]) at(g, place.ref[key]);
+    }
     if (instant) requestAnimationFrame(() => requestAnimationFrame(() => svg.classList.remove("is-instant")));
     const cur = steps[state.upto];
     els.range.value = state.upto;
     els.range.setAttribute("aria-valuetext", `${cur.year}, ${cur.grower}, ${fmt(cur.weightKg, 1)} kilograms`);
     els.out.textContent = `${cur.year} · record ${asPublished(cur.weightKg)} kg`;
-    const r = steps.find((z) => z.id === state.selected);
+    const r = steps[k];
     renderDetail(els.detail, { record: r, size: sizes.get(r.id), steps, refs, data });
-    // Keep the selection visible when the stage is wider than the screen. A fresh draw starts at the left edge,
-    // so narrow screens open on the reference objects.
-    if (instant) return;
-    const cx = GUTTER_L + pkX.get(r.id) * state.s, view = els.scroll;
-    if (cx < view.scrollLeft + 60 || cx > view.scrollLeft + view.clientWidth - 60)
-      view.scrollTo({ left: cx - view.clientWidth / 2, behavior: reducedMotion() ? "auto" : "smooth" });
+    // On narrow screens keep the selected pumpkin and the references beside it in view.
+    const left = GUTTER_L + (place.pk[k] - sizes.get(r.id).widthM / 2) * s;
+    const right = GUTTER_L + Math.max(...Object.values(place.ref), place.pk[k]) * s + 40;
+    const view = els.scroll;
+    if (left < view.scrollLeft || right > view.scrollLeft + view.clientWidth)
+      view.scrollTo({ left: left - 30, behavior: instant || reducedMotion() ? "auto" : "smooth" });
+    // Other views (the step chart) follow the timeline through this event.
+    root.dispatchEvent(new CustomEvent("recordchange", { detail: { upto: state.upto, selected: k } }));
   }
 
   function setIndex(i) {
@@ -145,8 +176,7 @@ export function mountLineup(root, { data, refs, steps }) {
   }
 
   els.range.addEventListener("input", () => setIndex(Number(els.range.value)));
-  for (const t of els.toggles)
-    t.addEventListener("change", () => els.scroll.querySelector(`[data-ref-shape="${t.dataset.ref}"]`).classList.toggle("is-hidden", !t.checked));
+  for (const t of els.toggles) t.addEventListener("change", () => update());
 
   els.scroll.addEventListener("click", (e) => {
     const g = e.target.closest(".pk");
@@ -167,6 +197,5 @@ export function mountLineup(root, { data, refs, steps }) {
     if (Math.abs(w - lastW) < 8) return;
     lastW = w;
     draw();
-    for (const t of els.toggles) if (!t.checked) els.scroll.querySelector(`[data-ref-shape="${t.dataset.ref}"]`).classList.add("is-hidden");
   }).observe(els.scroll);
 }

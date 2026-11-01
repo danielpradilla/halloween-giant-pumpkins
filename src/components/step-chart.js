@@ -81,14 +81,16 @@ export function renderStepChart(el, { steps, data }) {
       </text></g>`;
   });
 
-  const labels = steps.filter((s) => s.featured).map((s) => {
+  const labels = steps.map((s, i) => {
+    if (!s.featured) return "";
     const px = x(s.year), py = y(s.weightKg);
-    return `<text class="pt-label" transform="translate(${(px + 4).toFixed(1)} ${(py - 9).toFixed(1)}) rotate(-90)">${s.year} · ${fmt(s.weightKg, 0)} kg</text>`;
+    return `<text class="pt-label" data-i="${i}" transform="translate(${(px + 4).toFixed(1)} ${(py - 9).toFixed(1)}) rotate(-90)">${s.year} · ${fmt(s.weightKg, 0)} kg</text>`;
   });
 
   el.innerHTML = `<svg class="step-chart" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="chart-title chart-desc">
     <title id="chart-title">World-record pumpkin weight by year</title>
     <desc id="chart-desc">Step chart of ${steps.length} record weights from ${steps[0].year} (${fmt(steps[0].weightKg, 1)} kg) to ${steps.at(-1).year} (${fmt(steps.at(-1).weightKg, 1)} kg).</desc>
+    <defs><clipPath id="chart-reached"><rect class="reached-clip" x="0" y="0" width="${W}" height="${H}"/></clipPath></defs>
     ${fast ? `<rect class="fast-band" x="${x(fast.from.year)}" y="${T}" width="${x(fast.to.year) - x(fast.from.year)}" height="${H - T - B}"/>
       <text class="fast-label" x="${x(fast.from.year) + 6}" y="${T + 14}">Fastest decade: +${fmt(fast.gain, 0)} kg</text>
       <text class="fast-label" x="${x(fast.from.year) + 6}" y="${T + 29}">(${fast.from.year}–${fast.to.year})</text>` : ""}
@@ -100,10 +102,33 @@ export function renderStepChart(el, { steps, data }) {
     <line class="axis" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>
     <g class="x-ticks">${yearTicks.map((yv) => `<line x1="${x(yv)}" x2="${x(yv)}" y1="${H - B}" y2="${H - B + 6}"/><text x="${x(yv)}" y="${H - B + 22}">${yv}</text>`).join("")}</g>
     ${breaks.join("")}
-    <path class="step-dash" d="${dashed}"/>
-    <path class="step-line" d="${path}"/>
-    ${steps.map((s) => `<circle class="pt${s.featured ? " pt-featured" : ""}" cx="${x(s.year)}" cy="${y(s.weightKg)}" r="${s.featured ? 5 : 3.2}"><title>${s.year}, ${s.grower}: ${fmt(s.weightKg, 1)} kg</title></circle>`).join("")}
+    <line class="cursor" x1="0" x2="0" y1="${T}" y2="${H - B}"/>
+    <path class="step-ahead" d="${path}${dashed}"/>
+    <g clip-path="url(#chart-reached)">
+      <path class="step-dash" d="${dashed}"/>
+      <path class="step-line" d="${path}"/>
+    </g>
+    ${steps.map((s, i) => `<circle class="pt${s.featured ? " pt-featured" : ""}" data-i="${i}" cx="${x(s.year)}" cy="${y(s.weightKg)}" r="${s.featured ? 5 : 3.2}"><title>${s.year}, ${s.grower}: ${fmt(s.weightKg, 1)} kg</title></circle>`).join("")}
+    <circle class="pt-current" r="9" cx="0" cy="0"/>
     ${labels.join("")}
   </svg>`;
-  return { ms, fast };
+
+  // Follow the lineup: the line is solid up to the record reached on the slider, later records fade, and a cursor
+  // marks the selected record.
+  const svg = el.querySelector("svg");
+  const clip = svg.querySelector(".reached-clip");
+  const guide = svg.querySelector(".cursor");
+  const ring = svg.querySelector(".pt-current");
+  function setCurrent(upto, selected) {
+    clip.setAttribute("width", upto === steps.length - 1 ? W : (x(steps[upto].year) + 1).toFixed(1));
+    for (const node of svg.querySelectorAll("[data-i]")) node.classList.toggle("is-ahead", Number(node.dataset.i) > upto);
+    const s = steps[selected], cx = x(s.year).toFixed(1);
+    guide.setAttribute("x1", cx);
+    guide.setAttribute("x2", cx);
+    guide.setAttribute("y1", (y(s.weightKg) + 9).toFixed(1));
+    ring.setAttribute("cx", cx);
+    ring.setAttribute("cy", y(s.weightKg).toFixed(1));
+  }
+  setCurrent(steps.length - 1, steps.length - 1);
+  return { ms, fast, setCurrent };
 }

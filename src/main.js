@@ -36,10 +36,11 @@ fill(
     `The current record, ${esc(latest.grower)}'s ${asPublished(latest.weightKg)} kg (${asPublished(latest.weightLb)} lb) pumpkin from ${latest.year}, ` +
     `weighs as much as ${fmt(c.humans, 0)} adults and ${fmt(c.golfShare * 100, 0)}% of the car. Select a pumpkin or drag the slider to step through the records.`,
 );
-mountLineup(document.querySelector("#lineup"), { data, refs, steps });
-
-// Record chart
-const { fast } = renderStepChart(slot("step-chart")[0], { steps, data });
+// Record chart, drawn first so it can follow the lineup from the first draw.
+const { fast, setCurrent } = renderStepChart(slot("step-chart")[0], { steps, data });
+const lineupEl = document.querySelector("#lineup");
+lineupEl.addEventListener("recordchange", (e) => setCurrent(e.detail.upto, e.detail.selected));
+mountLineup(lineupEl, { data, refs, steps });
 const ms = milestones(steps);
 fill(
   "arms-lede",
