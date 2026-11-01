@@ -1,5 +1,5 @@
-// The lineup: every record pumpkin in year order on one ground line at one physical scale, with the adult, the
-// Labrador and the Golf standing to the right of the selected pumpkin. Horizontal spacing is by order, not by time.
+// The lineup: every record pumpkin in year order on one ground line at one physical scale, with the Labrador, the
+// adult and the Golf standing to the right of the selected pumpkin. Horizontal spacing is by order, not by time.
 // The slider steps through the records one at a time (evenly, whatever the gap in years); the references and the
 // later pumpkins slide to follow it. Each change is announced as a "recordchange" event on the section.
 import { pumpkinPath } from "./pumpkin.js";
@@ -33,7 +33,8 @@ export function mountLineup(root, { data, refs, steps }) {
   // Layout in metres, independent of screen size. Pumpkins have base positions in year order; the reference
   // objects stand to the right of the selected pumpkin, and every later pumpkin shifts right to make room.
   const refW = { human: humanSvg(refs.human, 1).widthM, dog: dogSvg(refs.dog, 1).widthM, car: carSvg(refs.car, 1).widthM };
-  const REF_GAPS = { human: 0.3, dog: 0.2, car: 0.25 }; // gap before each reference, metres
+  const REF_ORDER = ["dog", "human", "car"]; // left to right, starting beside the selected pumpkin
+  const REF_GAPS = { dog: 0.3, human: 0.2, car: 0.25 }; // gap before each reference, metres
   const base = [];
   let x = 0.3 + sizes.get(first.id).widthM / 2;
   steps.forEach((r, i) => {
@@ -48,7 +49,7 @@ export function mountLineup(root, { data, refs, steps }) {
     const w = (i) => sizes.get(steps[i].id).widthM;
     const ref = {};
     let edge = base[k] + w(k) / 2;
-    for (const key of ["human", "dog", "car"]) {
+    for (const key of REF_ORDER) {
       if (!shown[key]) continue;
       ref[key] = edge + REF_GAPS[key] + refW[key] / 2;
       edge = ref[key] + refW[key] / 2;
@@ -116,7 +117,7 @@ export function mountLineup(root, { data, refs, steps }) {
     </svg>`;
     els.note.textContent =
       `Scale: 1 m = ${s.toFixed(0)} px on this screen, the same for every object. Pumpkins are in year order, evenly spaced; the gaps do not represent time. ` +
-      `The adult, the Labrador and the Golf stand beside the selected pumpkin. ` +
+      `The Labrador, the adult and the Golf stand beside the selected pumpkin, in that order. ` +
       `Weights are verified. Pumpkin widths come from a measured circumference where Guinness published one, otherwise from a published weight–diameter fit; heights are illustrative.`;
     update({ instant: true });
   }
