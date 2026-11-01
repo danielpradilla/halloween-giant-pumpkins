@@ -1,234 +1,175 @@
-// Chapter 2: every featured record pumpkin on one ground line, at one scale, with a year scrubber, Play history,
-// reference toggles and a detail card. Reference objects stand beside the selected pumpkin; the car is parked behind it.
-import { pumpkinSvg } from "./pumpkin.js";
+// The lineup: the adult, the Labrador and the Golf once on the left, then every record pumpkin in year order on
+// one ground line at one physical scale. Horizontal spacing is by order, not by time. A year slider and Play history
+// grow the records in turn; selecting a pumpkin fills the detail card.
+import { pumpkinPath } from "./pumpkin.js";
 import { humanSvg, dogSvg, carSvg } from "./silhouettes.js";
 import { asPublished, estimateSize, fmt } from "../lib/model.js";
 import { renderDetail } from "./detail.js";
 
-const GROUND_BAND = 74; // px under the ground line for year and weight labels
-const SKY_M = 0.45; // headroom above the tallest object, metres
+const GUTTER_L = 46; // px for the height ruler
+const GUTTER_R = 12;
+const LABEL_BAND = 44; // px under the ground for the year labels
+const TOP_PAD = 22; // px above the tallest object for the selected weight label
+const MIN_PX_PER_M = 22; // below this the stage scrolls sideways instead of shrinking
+const OVERLAP = 0.62; // centre spacing as a share of the two neighbours' mean width
+const MIN_STEP_M = 0.62;
+const STEP_MS = 450;
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function mountLineup(root, { data, refs, steps }) {
-  const featured = steps.filter((r) => r.featured);
-  const sizes = new Map(featured.map((r) => [r.id, estimateSize(r, data.silhouetteModel)]));
+  const sizes = new Map(steps.map((r) => [r.id, estimateSize(r, data.silhouetteModel)]));
   const els = {
     scroll: root.querySelector('[data-slot="lineup"]'),
-    ruler: root.querySelector('[data-slot="ruler"]'),
     range: root.querySelector("#year-range"),
     out: root.querySelector("#year-out"),
-    ticks: root.querySelector('[data-slot="year-ticks"]'),
     play: root.querySelector('[data-action="play"]'),
     note: root.querySelector('[data-slot="scale-note"]'),
-    detail: root.querySelector('[data-slot="detail"]'),
+    detail: document.querySelector('[data-slot="detail"]'),
     toggles: [...root.querySelectorAll("[data-ref]")],
   };
+  const first = steps[0], last = steps.at(-1);
+  // upto: index of the latest record reached on the timeline (two records can share a year).
+  const state = { upto: steps.length - 1, selected: last.id, timer: null, s: 0 };
+  const indexAt = (year) => Math.max(steps.findLastIndex((r) => r.year <= year), 0);
 
-  const state = {
-    year: featured.at(-1).year,
-    selected: featured.at(-1).id,
-    show: { human: true, dog: true, car: true },
-    timer: null,
-  };
-  let layout = null;
-
-  // Range covers the featured years; positions snap to the latest record at or before the chosen year.
-  els.range.min = featured[0].year;
-  els.range.max = featured.at(-1).year;
-  els.range.value = state.year;
-  els.ticks.innerHTML = featured
-    .map((r) => {
-      const pct = ((r.year - featured[0].year) / (featured.at(-1).year - featured[0].year)) * 100;
-      return `<span style="left:${pct.toFixed(2)}%"></span>`;
-    })
-    .join("") +
-    `<b style="left:0">${featured[0].year}</b><b style="left:100%">${featured.at(-1).year}</b>`;
-
-  const recordAt = (year) => featured.filter((r) => r.year <= year).at(-1) ?? featured[0];
-
-  function computeScale() {
-    const stageH = els.scroll.clientHeight;
-    const tallest = Math.max(
-      refs.human.heightM,
-      refs.car.heightM,
-      ...[...sizes.values()].map((s) => s.heightM * 1.18), // stem
-    );
-    // Height sets the scale; on narrow screens it is capped so the widest pumpkin and a person fit side by side.
-    const widest = Math.max(...[...sizes.values()].map((s) => s.widthM));
-    const byWidth = (els.scroll.clientWidth - 64) / (widest + refs.human.heightM * 0.8);
-    const pxPerM = Math.max(Math.min((stageH - GROUND_BAND - 8) / (tallest + SKY_M), byWidth), 60);
-    return { pxPerM, groundY: stageH - GROUND_BAND, stageH, stageW: els.scroll.clientWidth };
-  }
-
-  // Compact slots for every pumpkin; the selected one widens so the references fit beside and behind it.
-  function slotsFor(selectedId) {
-    const side = Math.max(state.show.human ? layout.refW.human + 0.25 : 0, state.show.dog ? layout.refW.dog + 0.2 : 0);
-    let x = 1.0; // clear of the ruler
-    const slots = new Map();
-    for (const r of featured) {
-      const { widthM } = sizes.get(r.id);
-      const need = r.id === selectedId
-        ? Math.max(widthM + 2 * side + 0.8, state.show.car ? refs.car.lengthM + 0.8 : 0, 1.6)
-        : Math.max(widthM + 0.8, 1.6);
-      slots.set(r.id, { centerM: x + need / 2, needM: need });
-      x += need;
+  // Layout in metres, independent of screen size.
+  const human = humanSvg(refs.human, 1), dog = dogSvg(refs.dog, 1), car = carSvg(refs.car, 1);
+  const refX = { human: 0.15 + human.widthM / 2 };
+  refX.dog = refX.human + human.widthM / 2 + 0.2 + dog.widthM / 2;
+  refX.car = refX.dog + dog.widthM / 2 + 0.25 + car.widthM / 2;
+  const pkX = new Map();
+  let x = refX.car + car.widthM / 2 + 0.9 + sizes.get(first.id).widthM / 2;
+  steps.forEach((r, i) => {
+    if (i > 0) {
+      const a = sizes.get(steps[i - 1].id).widthM, b = sizes.get(r.id).widthM;
+      x += Math.max(((a + b) / 2) * OVERLAP, MIN_STEP_M);
     }
-    return { slots, totalM: x + 0.6 };
-  }
+    pkX.set(r.id, x);
+  });
+  const totalM = x + sizes.get(last.id).widthM / 2 + 0.2;
+  const tallestM = Math.max(refs.human.heightM, refs.car.heightM, ...[...sizes.values()].map((z) => z.heightM * 1.2));
+
+  els.range.min = first.year;
+  els.range.max = last.year;
 
   function draw() {
-    layout = computeScale();
-    const { pxPerM: s, groundY, stageH } = layout;
-    const human = humanSvg(refs.human, s);
-    const dog = dogSvg(refs.dog, s);
-    const car = carSvg(refs.car, s);
-    layout.refW = { human: human.widthM, dog: dog.widthM };
-    // Widest possible lineup: any pumpkin selected with every reference shown.
-    const maxM = Math.max(...featured.map((r) => slotsFor(r.id).totalM));
-    const W = Math.ceil(maxM * s);
-    const stars = Array.from({ length: Math.round(W / 60) }, (_, i) => {
-      const x = (i * 97.3) % W, y = 8 + ((i * 53.7) % Math.max(groundY - 40, 20)) * 0.6;
-      return `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${i % 3 === 0 ? 1.6 : 1}"/>`;
-    }).join("");
-    const meterTicks = Array.from({ length: Math.floor(maxM) + 1 }, (_, m) =>
-      `<line x1="${m * s}" x2="${m * s}" y1="${groundY}" y2="${groundY + (m % 5 === 0 ? 10 : 5)}"/>`,
-    ).join("");
+    const avail = els.scroll.clientWidth - GUTTER_L - GUTTER_R;
+    const s = Math.max(avail / totalM, MIN_PX_PER_M);
+    state.s = s;
+    const groundY = TOP_PAD + Math.ceil((tallestM + 0.15) * s);
+    const H = groundY + LABEL_BAND, W = Math.ceil(totalM * s) + GUTTER_L + GUTTER_R;
+    const X = (m) => (GUTTER_L + m * s).toFixed(1);
 
-    const items = featured
-      .map((r) => {
-        const { widthM, heightM } = sizes.get(r.id);
-        const hitW = Math.max(widthM + 0.8, 1.6) * s;
-        return `<g class="pk" data-id="${r.id}" role="button" tabindex="-1" aria-pressed="false">
-          <rect class="pk-hit" x="${(-hitW / 2).toFixed(1)}" y="${(-heightM * s * 1.3).toFixed(1)}" width="${hitW.toFixed(1)}" height="${(heightM * s * 1.3 + GROUND_BAND - 6).toFixed(1)}"/>
-          <g class="pk-body">${pumpkinSvg({ seed: r.id, w: widthM * s, h: heightM * s, uid: `l-${r.id}` })}</g>
-          <g class="pk-ghostwrap">${pumpkinSvg({ seed: r.id, w: widthM * s, h: heightM * s, ghost: true })}</g>
-          <rect class="pk-sel" x="-62" y="8" width="124" height="54" rx="6"/>
-          <text class="pk-year" y="30">${r.year}</text>
-          <text class="pk-weight" y="52">${asPublished(r.weightKg)} kg</text>
-        </g>`;
-      })
-      .join("");
+    const ruler = [];
+    for (let m = 0; m <= tallestM + 0.01; m += 0.5) {
+      const y = (groundY - m * s).toFixed(1);
+      const major = m % 1 === 0;
+      ruler.push(`<line x1="${GUTTER_L - (major ? 10 : 6)}" x2="${GUTTER_L - 2}" y1="${y}" y2="${y}"/>` +
+        (major ? `<text x="${GUTTER_L - 13}" y="${(+y + 4).toFixed(1)}">${m} m</text>` : ""));
+    }
 
-    els.scroll.innerHTML = `
-      <svg class="lineup-svg" height="${stageH}" aria-labelledby="lineup-title">
-        <g class="stars" aria-hidden="true">${stars}</g>
-        <rect class="ground" x="0" y="${groundY}" width="${W}" height="${GROUND_BAND}"/>
-        <g class="ref-slot car-layer" aria-hidden="true">${car.svg}</g>
-        ${items}
-        <g class="ref-slot ref-slot-human" aria-hidden="true">${human.svg}</g>
-        <g class="ref-slot ref-slot-dog" aria-hidden="true">${dog.svg}</g>
-        <line class="ground-line" x1="0" x2="${W}" y1="${groundY}" y2="${groundY}"/>
-        <g class="ground-ticks" aria-hidden="true">${meterTicks}</g>
-      </svg>`;
-    drawRuler();
-    els.note.innerHTML =
-      `Scale: 1 m = ${s.toFixed(0)} px on this screen; every object shares it. Ground ticks every metre. ` +
-      `Weights are verified records. Pumpkin widths come from a measured circumference where Guinness published one, otherwise from a published weight–diameter fit; heights are illustrative. <a href="#method-sizes">How sizes are estimated</a>.`;
+    // Labels sit above each silhouette, where neighbouring references never overlap.
+    const refShape = (key, fn, label) => {
+      const g = fn(refs[key], s);
+      return `<g class="ref ref-${key}" data-ref-shape="${key}" transform="translate(${X(refX[key])} ${groundY})">
+        <path d="${g.d}"/>${s >= 30 ? `<text class="ref-label" y="${(-refs[key].heightM * s - 6).toFixed(1)}">${label}</text>` : ""}</g>`;
+    };
+
+    // Right-to-left so smaller, earlier pumpkins overlap the larger ones behind them.
+    const pumpkins = steps.slice().reverse().map((r) => {
+      const { widthM, heightM } = sizes.get(r.id);
+      const d = pumpkinPath({ seed: r.id, w: widthM * s, h: heightM * s });
+      const half = (widthM * s) / 2;
+      return `<g class="pk" data-id="${r.id}" transform="translate(${X(pkX.get(r.id))} ${groundY})" role="button" tabindex="-1">
+        <rect class="pk-hit" x="${(-Math.min(half, MIN_STEP_M * s / 2)).toFixed(1)}" y="0" width="${Math.min(2 * half, MIN_STEP_M * s).toFixed(1)}" height="${LABEL_BAND}"/>
+        <path class="pk-ghost" d="${d}"/>
+        <path class="pk-shape" d="${d}"/>
+        <line class="pk-mark" x1="${(-half).toFixed(1)}" x2="${half.toFixed(1)}" y1="3" y2="3"/>
+        <text class="pk-weight" y="${(-heightM * s * 1.2 - 6).toFixed(1)}">${asPublished(r.weightKg)} kg</text>
+        <text class="pk-year" transform="translate(4 9) rotate(-90)">${r.year}</text>
+      </g>`;
+    });
+
+    els.scroll.innerHTML = `<svg class="lineup-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-labelledby="lineup-title">
+      <g class="ruler" aria-hidden="true"><line x1="${GUTTER_L - 2}" x2="${GUTTER_L - 2}" y1="${groundY}" y2="${(groundY - Math.floor(tallestM / 0.5) * 0.5 * s).toFixed(1)}"/>${ruler.join("")}</g>
+      <g aria-hidden="true">
+        ${refShape("car", carSvg, "VW Golf 8")}
+        ${refShape("dog", dogSvg, "Labrador")}
+        ${refShape("human", humanSvg, "Adult")}
+      </g>
+      ${pumpkins.join("")}
+      <line class="ground-line" x1="${GUTTER_L - 2}" x2="${W}" y1="${groundY}" y2="${groundY}"/>
+    </svg>`;
+    els.note.textContent =
+      `Scale: 1 m = ${s.toFixed(0)} px on this screen, the same for every object. Pumpkins are in year order, evenly spaced; the gaps do not represent time. ` +
+      `Weights are verified. Pumpkin widths come from a measured circumference where Guinness published one, otherwise from a published weight–diameter fit; heights are illustrative.`;
     update({ instant: true });
   }
 
-  function drawRuler() {
-    const { pxPerM: s, groundY, stageH } = layout;
-    const marks = [];
-    let top = groundY;
-    for (let m = 0; groundY - m * s > 6; m += 0.5) {
-      top = groundY - m * s;
-      marks.push(`<line x1="${m % 1 === 0 ? 4 : 9}" x2="16" y1="${top}" y2="${top}"/>` +
-        (m % 1 === 0 || s > 120 ? `<text x="20" y="${top + 4}">${m} m</text>` : ""));
-    }
-    els.ruler.innerHTML = `<svg width="64" height="${stageH}" aria-hidden="true">
-      <line x1="16" x2="16" y1="${groundY}" y2="${top}"/>${marks.join("")}</svg>`;
-  }
-
-  function update({ instant = false, grownNow = [] } = {}) {
+  function update({ instant = false } = {}) {
     const svg = els.scroll.querySelector("svg");
-    const { pxPerM: s, groundY } = layout;
-    const { slots, totalM } = slotsFor(state.selected);
     svg.classList.toggle("is-instant", instant);
-    svg.setAttribute("width", Math.ceil(totalM * s));
-    const at = (el, xPx) => (el.style.transform = `translate(${xPx.toFixed(1)}px, ${groundY}px)`);
-    for (const g of svg.querySelectorAll(".pk")) {
-      const r = featured.find((x) => x.id === g.dataset.id);
-      const grown = r.year <= state.year;
-      at(g, slots.get(r.id).centerM * s);
-      g.classList.toggle("is-ghost", !grown);
+    steps.forEach((r, i) => {
+      const g = svg.querySelector(`.pk[data-id="${r.id}"]`);
+      const grown = i <= state.upto;
       const sel = r.id === state.selected;
+      g.classList.toggle("is-future", !grown);
       g.classList.toggle("is-selected", sel);
       g.setAttribute("aria-pressed", String(sel));
       g.setAttribute("tabindex", sel ? "0" : "-1");
       g.setAttribute("aria-label", `${r.year}, ${r.grower}, ${fmt(r.weightKg, 1)} kilograms${grown ? "" : ", not yet reached on the timeline"}`);
-      if (grownNow.includes(r.id) && !instant && !reducedMotion()) {
-        g.classList.remove("is-growing");
-        void g.getBoundingClientRect();
-        g.classList.add("is-growing");
-      }
-    }
-    // The references stand beside the selected pumpkin; the car is parked behind it.
-    const { widthM } = sizes.get(state.selected);
-    const cx = slots.get(state.selected).centerM * s;
-    const place = (sel, x, on) => {
-      const el = svg.querySelector(sel);
-      at(el, x);
-      el.classList.toggle("is-hidden", !on);
-    };
-    place(".ref-slot-human", cx - (widthM / 2 + layout.refW.human / 2 + 0.2) * s, state.show.human);
-    place(".ref-slot-dog", cx + (widthM / 2 + layout.refW.dog / 2 + 0.15) * s, state.show.dog);
-    place(".car-layer", cx, state.show.car);
-    if (instant) requestAnimationFrame(() => svg.classList.remove("is-instant"));
-
-    els.range.value = state.year;
-    els.range.style.setProperty("--pct", `${((state.year - featured[0].year) / (featured.at(-1).year - featured[0].year)) * 100}%`);
-    els.out.textContent = `${state.year} · record ${fmt(recordAt(state.year).weightKg, 1)} kg`;
-    const r = featured.find((x) => x.id === state.selected);
+    });
+    if (instant) requestAnimationFrame(() => requestAnimationFrame(() => svg.classList.remove("is-instant")));
+    const cur = steps[state.upto];
+    els.range.value = cur.year;
+    els.out.textContent = `${cur.year} · record ${asPublished(cur.weightKg)} kg`;
+    const r = steps.find((z) => z.id === state.selected);
     renderDetail(els.detail, { record: r, size: sizes.get(r.id), steps, refs, data });
-    // Centre the selection in the part of the stage not covered by the ruler.
-    const ruler = els.ruler.offsetWidth;
-    els.scroll.scrollTo({ left: cx - ruler - (els.scroll.clientWidth - ruler) / 2, behavior: instant || reducedMotion() ? "auto" : "smooth" });
+    // Keep the selection visible when the stage is wider than the screen. A fresh draw starts at the left edge,
+    // so narrow screens open on the reference objects.
+    if (instant) return;
+    const cx = GUTTER_L + pkX.get(r.id) * state.s, view = els.scroll;
+    if (cx < view.scrollLeft + 60 || cx > view.scrollLeft + view.clientWidth - 60)
+      view.scrollTo({ left: cx - view.clientWidth / 2, behavior: reducedMotion() ? "auto" : "smooth" });
   }
 
-  function setYear(year, { select = true } = {}) {
-    const before = state.year;
-    state.year = Math.max(featured[0].year, Math.min(year, featured.at(-1).year));
-    if (select) state.selected = recordAt(state.year).id;
-    const grownNow = featured.filter((r) => r.year > before && r.year <= state.year).map((r) => r.id);
-    update({ grownNow });
+  function setYear(year) {
+    state.upto = indexAt(year);
+    state.selected = steps[state.upto].id;
+    update();
   }
 
   function select(id, { focus = false } = {}) {
-    const r = featured.find((x) => x.id === id);
     state.selected = id;
-    if (r.year > state.year) setYear(r.year, { select: false });
-    else update();
+    state.upto = Math.max(state.upto, steps.findIndex((r) => r.id === id));
+    update();
     if (focus) els.scroll.querySelector(`.pk[data-id="${id}"]`)?.focus({ preventScroll: true });
   }
 
   function stop() {
     clearInterval(state.timer);
     state.timer = null;
-    els.play.querySelector("span").textContent = "Play history";
-    els.play.querySelector("use").setAttribute("href", "#i-play");
+    els.play.textContent = "Play history";
   }
 
   function play() {
     if (state.timer) return stop();
-    // Start from the first record with everything after it ungrown.
-    state.year = featured[0].year;
-    state.selected = featured[0].id;
+    state.upto = 0;
+    state.selected = first.id;
     update();
-    els.play.querySelector("span").textContent = "Pause";
-    els.play.querySelector("use").setAttribute("href", "#i-pause");
-    let i = 0;
+    els.play.textContent = "Pause";
     state.timer = setInterval(() => {
-      i += 1;
-      if (i >= featured.length) return stop();
-      setYear(featured[i].year);
-    }, 1300);
+      if (state.upto >= steps.length - 1) return stop();
+      state.upto += 1;
+      state.selected = steps[state.upto].id;
+      update();
+    }, STEP_MS);
   }
 
   els.range.addEventListener("input", () => { stop(); setYear(Number(els.range.value)); });
   els.play.addEventListener("click", play);
   for (const t of els.toggles)
-    t.addEventListener("change", () => { state.show[t.dataset.ref] = t.checked; draw(); });
+    t.addEventListener("change", () => els.scroll.querySelector(`[data-ref-shape="${t.dataset.ref}"]`).classList.toggle("is-hidden", !t.checked));
 
   els.scroll.addEventListener("click", (e) => {
     const g = e.target.closest(".pk");
@@ -237,16 +178,18 @@ export function mountLineup(root, { data, refs, steps }) {
   els.scroll.addEventListener("keydown", (e) => {
     const g = e.target.closest(".pk");
     if (!g) return;
-    const i = featured.findIndex((r) => r.id === g.dataset.id);
-    const go = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: featured.length - 1 }[e.key];
+    const i = steps.findIndex((r) => r.id === g.dataset.id);
+    const go = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: steps.length - 1 }[e.key];
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); stop(); select(g.dataset.id); }
-    else if (go != null && featured[go]) { e.preventDefault(); stop(); select(featured[go].id, { focus: true }); }
+    else if (go != null && steps[go]) { e.preventDefault(); stop(); select(steps[go].id, { focus: true }); }
   });
 
-  // Redraw when the stage size changes the scale.
+  let lastW = 0;
   new ResizeObserver(() => {
-    if (layout && (Math.abs(els.scroll.clientHeight - layout.stageH) > 1 || Math.abs(els.scroll.clientWidth - layout.stageW) > 40)) draw();
+    const w = els.scroll.clientWidth;
+    if (Math.abs(w - lastW) < 8) return;
+    lastW = w;
+    draw();
+    for (const t of els.toggles) if (!t.checked) els.scroll.querySelector(`[data-ref-shape="${t.dataset.ref}"]`).classList.add("is-hidden");
   }).observe(els.scroll);
-
-  draw();
 }

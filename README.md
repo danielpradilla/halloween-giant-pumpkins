@@ -1,6 +1,6 @@
 # The Giant Pumpkin Arms Race
 
-An illustrated, to-scale history of the world record for the heaviest pumpkin. Every record pumpkin stands on one ground line beside a 1.75 m adult, a Labrador retriever and a 2020 Volkswagen Golf, all drawn at the same scale. The page also has a step chart of the record weight from 1900 to the latest record, and a sources and methodology section.
+A to-scale history of the world record for the heaviest pumpkin. One panorama shows a 1.75 m adult, a Labrador retriever and a 2020 Volkswagen Golf once, followed by the silhouette of every pumpkin that set the record since 1900, in year order, all at the same scale. The page also has a step chart of the record weight over time and a sources and methodology section.
 
 Live page: <https://www.danielpradilla.info/projects/halloween-giant-pumpkins/>
 
@@ -20,16 +20,15 @@ The weights, dates, growers and events are verified records with a source link f
 
 ## What the page shows
 
-1. Title and a to-scale drawing of the current record pumpkin beside an adult.
-2. Chapter 1, Meet the giants: the current record beside the adult, the Labrador and the Golf, with weight comparisons.
-3. Chapter 2, Bigger. Heavier. Stranger.: the lineup of featured record pumpkins. It scrolls sideways, has a year slider, a Play history button that grows each record in turn, toggles for the three reference objects, and a detail card for the selected pumpkin with its sources.
-4. Chapter 3, The arms race: a step chart of all record steps. The 72 years between 1904 and 1976 with no new record are drawn as a marked axis break.
-5. Chapter 4, How big can they get?: breeding, genetics, cultivation, water and nutrients, and structural limits, each with sources.
-6. Sources & methodology: status definitions, the size model, reference assumptions and a table of every record with its sources.
+1. Lineup (Bigger. Heavier. Stranger.): the adult, the Labrador and the Golf, then all record pumpkins on one ground line. Pumpkins are evenly spaced in year order; the spacing does not represent time. A year slider and a Play history button grow the records in turn; checkboxes hide or show each reference object. The stage fits the screen width, and scrolls sideways below 22 px per metre so silhouettes stay legible on phones.
+2. Selected record: weight in kilograms and pounds, comparisons with the reference masses, event, drawn size and sources. It opens on the current record.
+3. The arms race: a step chart of all record steps. The 72 years between 1904 and 1976 with no new record are drawn as a marked axis break.
+4. How big can they get?: breeding, genetics, cultivation, water and nutrients, and structural limits, each with sources.
+5. Sources & methodology: status definitions, the size model, reference assumptions and a table of every record with its sources.
 
-The look follows the Daniel Game Style guide (`danielpradilla-game-style`): Sansita and Recursive type, ink outlines, hard offset shadows, halftone shading and motion on twos. `src/styles/game-style.css` is a copy of that guide's `styles.css`.
+The look follows the Daniel app house style (`danielpradilla-app-style`): off-white page, system sans type at light weights, hairline borders, square controls, and colour reserved for interaction (blue) and the pumpkins (orange). Pumpkins and reference objects are flat silhouettes. Motion uses smooth CSS transitions on `transform` and `opacity` and stops when the browser asks for reduced motion.
 
-The site is plain HTML, CSS and JavaScript modules with no build step and no runtime dependencies, the same setup as the other game-style projects on danielpradilla.info. Node.js 18 or later runs the validation script.
+The site is plain HTML, CSS and JavaScript modules with no build step and no runtime dependencies. Node.js 18 or later runs the validation script.
 
 ## Data files
 
@@ -55,11 +54,11 @@ Each record:
 | `weightKg` | yes | Weight in kilograms. Use the published value when Guinness gives one; otherwise convert with 1 lb = 0.45359237 kg and round to 0.1 kg. |
 | `weightKgBasis` | yes | `reported` (published kilograms) or `converted`. |
 | `grower` | yes | Grower name(s) as given by the sources. |
-| `country` | featured records | Grower's country. `null` if no source states it. |
+| `country` | labelled records | Grower's country. `null` if no source states it. |
 | `place` | no | Grower's home town or region. |
 | `event` | no | Weigh-off name and location. `null` if no source states it. |
 | `status` | yes | `guinness-world-record`, `gpc-world-record` or `historical-record` (see below). |
-| `featured` | yes | `true` to show the pumpkin in the lineup. The chart shows every record. The latest record must be featured. |
+| `featured` | yes | `true` to label the point with year and weight in the step chart (about 15 labels fit). The lineup and the table show every record. The latest record must be featured. |
 | `note` | no | Firsts, nicknames and disagreements between sources. |
 | `dimensions` | yes (may be `{}`) | `circumferenceCm` with `circumferenceSource`, and/or `ottIn` with `ottSource`, when a source publishes them. |
 | `sources[]` | yes | `{ "label", "url" }` for every source supporting the row. |
@@ -84,7 +83,7 @@ Giant pumpkin records are weights. Nobody publishes the height of a record pumpk
 1. Width, when Guinness World Records published a circumference: circumference ÷ π, assuming a round footprint. Four records have one (2023, 2025, both 2026 records).
 2. Width, all other records: the weight–diameter fit from Hu, Richards and Alexeev (2011), W = 2070·L³, with W in newtons and L in metres, measured on 49 giant pumpkins up to about 1.4 m across. Widths above 1.4 m are extrapolations and the detail card says so.
 3. Height: width × 0.6 for every pumpkin. Hu et al. report that small pumpkins are close to spherical (height/width ≈ 0.9) and that giants flatten by up to 50%. 0.6 is an illustrative choice inside that range.
-4. Lobes, stem, colour and asymmetry are generated from the record `id` and do not describe the real fruit.
+4. The outline's lobes, lean, asymmetry and stem are generated from the record `id` and do not describe the real fruit.
 
 The methodology section on the page compares the fit with the four measured circumferences. The fit draws those pumpkins 4–12% narrower than circumference ÷ π.
 
@@ -94,7 +93,7 @@ The methodology section on the page compares the fit with the four measured circ
 npm run serve
 ```
 
-Open <http://127.0.0.1:8795/>. Any static file server works; `npm run serve` uses Python's `http.server`. Opening `index.html` from the file system does not work because the page loads its JSON with `fetch`.
+Open <http://127.0.0.1:8796/>. Any static file server works; `npm run serve` uses Python's `http.server`. Opening `index.html` from the file system does not work because the page loads its JSON with `fetch`.
 
 ## Validate the data
 
@@ -107,7 +106,7 @@ The script (`scripts/validate-data.mjs`) checks:
 - required fields, ISO dates and source URLs on every record and reference object;
 - that kilograms and pounds agree within 0.5 kg;
 - that each record is heavier than the previous one;
-- that the latest record is featured and featured records have a country;
+- that the latest record is featured (labelled in the chart) and labelled records have a country;
 - that no `verifiedOn` date is later than `dataLastUpdated`;
 - the Golf geometry (wheelbase plus front overhang shorter than the car);
 - the size model against its own published fit.
@@ -193,7 +192,7 @@ Append an object to the end of `records` in `src/data/pumpkin-records.json`. Exa
 }
 ```
 
-Then set `"dataLastUpdated"` at the top of the file to the date of the change. If a featured record from earlier years should give way to keep the lineup to about 15 pumpkins, set its `featured` to `false`; it stays in the chart and the sources table.
+Then set `"dataLastUpdated"` at the top of the file to the date of the change. If the chart labels start to crowd, set `featured` to `false` on an older record; it stays in the lineup, the chart and the sources table, without a label.
 
 ### 5. Record source URLs and verification dates
 
@@ -223,11 +222,11 @@ Fix every reported problem. A successful run prints the new latest record, for e
 npm run serve
 ```
 
-Open <http://127.0.0.1:8795/> and check:
+Open <http://127.0.0.1:8796/> and check:
 
-- the title caption and footer show the new `dataLastUpdated`;
-- the hero and chapter 1 show the new record and its weight;
-- the new pumpkin is the last one in the lineup, selected, with working source links;
+- the footer shows the new `dataLastUpdated`;
+- the lineup introduction names the new record and its weight;
+- the new pumpkin is the last one in the lineup and the detail card opens on it, with working source links;
 - the step chart has a new final step;
 - the new row is at the top of the sources table.
 
@@ -264,18 +263,16 @@ halloween-giant-pumpkins/
     ├── main.js                loads the JSON and fills the page
     ├── lib/model.js           conversions, size estimate, comparisons, milestones
     ├── components/
-    │   ├── pumpkin.js         procedural pumpkin illustration
+    │   ├── pumpkin.js         procedural pumpkin silhouette
     │   ├── silhouettes.js     adult, Labrador and Golf drawn from their dimensions
-    │   ├── scene.js           static to-scale scenes (title, chapter 1)
-    │   ├── lineup.js          chapter 2 lineup, slider, Play history, toggles
+    │   ├── lineup.js          lineup panorama, year slider, Play history, toggles
     │   ├── detail.js          selected-pumpkin card
-    │   └── step-chart.js      chapter 3 step chart
+    │   └── step-chart.js      record-weight step chart
     ├── data/
     │   ├── pumpkin-records.json
     │   └── reference-objects.json
     └── styles/
-        ├── game-style.css     copy of the Daniel Game Style tokens and components
-        └── app.css            page styles
+        └── app.css            page styles (danielpradilla-app-style tokens and components)
 ```
 
 ## License

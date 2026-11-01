@@ -44,7 +44,7 @@ for (const r of data.records ?? []) {
   if (!r.grower) fail(at, "grower required");
   if (!RECORD_STATUSES.includes(r.status)) fail(at, `unknown status ${r.status}`);
   if (typeof r.featured !== "boolean") fail(at, "featured must be true or false");
-  if (r.featured && !r.country) fail(at, "featured records need a country");
+  if (r.featured && !r.country) fail(at, "labelled (featured) records need a country");
   if (!isoDate.test(r.verifiedOn ?? "")) fail(at, "verifiedOn must be YYYY-MM-DD");
   else if (r.verifiedOn > data.dataLastUpdated) fail(at, "verifiedOn is later than dataLastUpdated");
   checkSources(at, r.sources);
@@ -62,7 +62,7 @@ for (let i = 1; i < steps.length; i++)
   if (steps[i].weightKg <= steps[i - 1].weightKg)
     fail(`record ${steps[i].id}`, `not heavier than the previous record ${steps[i - 1].id}`);
 const featured = steps.filter((r) => r.featured);
-if (featured.length < 2) fail("records", "feature at least two records for the lineup");
+if (featured.length < 2) fail("records", "feature at least two records for the chart labels");
 if (!steps.at(-1)?.featured) fail("records", "the latest record must be featured");
 
 // Reference objects

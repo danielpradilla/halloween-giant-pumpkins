@@ -1,11 +1,12 @@
 // Reference silhouettes drawn in metres (y up) and scaled by px per metre. Origin: centre of the ground contact.
-// Overall dimensions come from reference-objects.json; interior proportions (limbs, windows) are drawing choices.
+// Overall dimensions come from reference-objects.json; limb and body curves are drawing choices.
 
 const f = (n) => n.toFixed(1);
 const poly = (pts, s) => "M" + pts.map(([x, y]) => `${f(x * s)} ${f(-y * s)}`).join("L") + "Z";
 const mirror = (half) => [...half, ...half.slice().reverse().map(([x, y]) => [-x, y])];
+const circle = (cx, cy, r) => `M${f(cx - r)} ${f(cy)}a${f(r)} ${f(r)} 0 1 0 ${f(2 * r)} 0a${f(r)} ${f(r)} 0 1 0 ${f(-2 * r)} 0Z`;
 
-// Front view of a standing adult; the head top sits exactly at heightM.
+// Front view of a standing adult; the top of the head sits exactly at heightM.
 export function humanSvg(ref, s) {
   const k = ref.heightM / 1.75;
   const half = [
@@ -13,14 +14,10 @@ export function humanSvg(ref, s) {
     [0.165, 1.27], [0.185, 1.25], [0.19, 0.84], [0.215, 0.76], [0.25, 0.8], [0.24, 1.37], [0.2, 1.455],
     [0.07, 1.5], [0.055, 1.53],
   ].map(([x, y]) => [x * k, y * k]);
-  const r = 0.105 * k;
-  return {
-    widthM: 0.5 * k,
-    svg: `<g class="ref ref-human">
-      <path d="${poly(mirror(half), s)}"/>
-      <ellipse cx="0" cy="${f(-(ref.heightM - r * 1.1) * s)}" rx="${f(r * 0.88 * s)}" ry="${f(r * 1.1 * s)}"/>
-    </g>`,
-  };
+  // Head sits just above the neck so the two subpaths never overlap (no winding holes).
+  const rx = 0.092 * k * s, ry = 0.1075 * k * s, cy = -ref.heightM * s + ry;
+  const head = `M${f(-rx)} ${f(cy)}a${f(rx)} ${f(ry)} 0 1 0 ${f(2 * rx)} 0a${f(rx)} ${f(ry)} 0 1 0 ${f(-2 * rx)} 0Z`;
+  return { widthM: 0.5 * k, d: poly(mirror(half), s) + head };
 }
 
 // Side view of a Labrador facing right; the withers sit at heightM.
@@ -33,19 +30,11 @@ export function dogSvg(ref, s) {
     [-0.205, 0.22], [-0.215, 0.05], [-0.175, 0], [-0.3, 0], [-0.31, 0.13], [-0.385, 0.33], [-0.37, 0.47],
     [-0.41, 0.47],
   ].map(([x, y]) => [x * k, y * k]);
-  const ear = [[0.25, 0.71], [0.31, 0.71], [0.315, 0.6], [0.27, 0.6]].map(([x, y]) => [x * k, y * k]);
-  return {
-    widthM: 1.07 * k,
-    svg: `<g class="ref ref-dog">
-      <path d="${poly(body, s)}"/>
-      <path class="ref-detail" d="${poly(ear, s)}"/>
-      <circle class="ref-eye" cx="${f(0.43 * k * s)}" cy="${f(-0.7 * k * s)}" r="${f(Math.max(0.012 * k * s, 1.2))}"/>
-    </g>`,
-  };
+  return { widthM: 1.07 * k, d: poly(body, s) };
 }
 
 // Side profile of the reference hatchback facing right. Length, height, wheelbase, front overhang and tyre
-// diameter are the documented values; the body curves between them are drawn to match the published side view.
+// diameter are the documented values; the body curves between them follow a Golf 8 side view.
 export function carSvg(ref, s) {
   const L = ref.lengthM, H = ref.heightM, WB = ref.wheelbaseM, FO = ref.frontOverhangM, R = ref.wheelDiameterM / 2;
   const xr = L - FO - WB, xf = L - FO;
@@ -59,7 +48,6 @@ export function carSvg(ref, s) {
     pts.push([cx - ra, 0.24]);
     return pts;
   };
-  // Body points drawn from a Golf 8 side view (metres, rear at x = 0), stretched to the documented length/height.
   const kx = L / 4.284, ky = H / 1.491;
   const P = (pts) => pts.map(([x, y]) => [x * kx, y * ky]);
   const outline = [
@@ -71,22 +59,7 @@ export function carSvg(ref, s) {
     ...arch(xf),
     ...arch(xr),
     ...P([[0.12, 0.25]]),
-  ];
-  const glass = P([
-    [0.42, 1.03], [0.66, 1.385], [0.8, 1.405], [1.7, 1.405], [1.97, 1.37], [2.56, 1.04],
-  ]);
-  const pillar = P([[1.43, 1.405], [1.52, 1.405], [1.5, 1.03], [1.41, 1.03]]);
-  const ox = -L / 2;
-  const shift = (pts) => pts.map(([x, y]) => [x + ox, y]);
-  const wheel = (cx) => `<circle class="ref-tyre" cx="${f((cx + ox) * s)}" cy="${f(-R * s)}" r="${f(R * s)}"/>
-      <circle class="ref-rim" cx="${f((cx + ox) * s)}" cy="${f(-R * s)}" r="${f(R * 0.6 * s)}"/>`;
-  return {
-    widthM: L,
-    svg: `<g class="ref ref-car">
-      <path d="${poly(shift(outline), s)}"/>
-      <path class="ref-glass" d="${poly(shift(glass), s)}"/>
-      <path class="ref-detail" d="${poly(shift(pillar), s)}"/>
-      ${wheel(xr)}${wheel(xf)}
-    </g>`,
-  };
+  ].map(([x, y]) => [x - L / 2, y]);
+  const wheels = [xr, xf].map((cx) => circle((cx - L / 2) * s, -R * s, R * s)).join("");
+  return { widthM: L, d: poly(outline, s) + wheels };
 }
