@@ -20,7 +20,7 @@ The weights, dates, growers and events are verified records with a source link f
 
 ## What the page shows
 
-1. Lineup (Bigger. Heavier. Stranger.): the adult, the Labrador and the Golf, then all record pumpkins on one ground line. Pumpkins are evenly spaced in year order; the spacing does not represent time. A year slider and a Play history button grow the records in turn; checkboxes hide or show each reference object. The stage fits the screen width, and scrolls sideways below 22 px per metre so silhouettes stay legible on phones.
+1. Lineup (Bigger. Heavier. Stranger.): the adult, the Labrador and the Golf, then all record pumpkins on one ground line. Pumpkins are evenly spaced in year order; the spacing does not represent time. The slider steps through the records one per notch, so it moves evenly even where years jump (1904 to 1976); later records show as dashed outlines. Checkboxes hide or show each reference object. The stage fits the screen width, and scrolls sideways below 22 px per metre so silhouettes stay legible on phones.
 2. Selected record: weight in kilograms and pounds, comparisons with the reference masses, event, drawn size and sources. It opens on the current record.
 3. The arms race: a step chart of all record steps. The 72 years between 1904 and 1976 with no new record are drawn as a marked axis break.
 4. How big can they get?: breeding, genetics, cultivation, water and nutrients, and structural limits, each with sources.
@@ -265,7 +265,7 @@ halloween-giant-pumpkins/
     ├── components/
     │   ├── pumpkin.js         procedural pumpkin silhouette
     │   ├── silhouettes.js     adult, Labrador and Golf drawn from their dimensions
-    │   ├── lineup.js          lineup panorama, year slider, Play history, toggles
+    │   ├── lineup.js          lineup panorama, record slider, toggles
     │   ├── detail.js          selected-pumpkin card
     │   └── step-chart.js      record-weight step chart
     ├── data/

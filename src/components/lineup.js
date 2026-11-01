@@ -1,6 +1,6 @@
 // The lineup: the adult, the Labrador and the Golf once on the left, then every record pumpkin in year order on
-// one ground line at one physical scale. Horizontal spacing is by order, not by time. A year slider and Play history
-// grow the records in turn; selecting a pumpkin fills the detail card.
+// one ground line at one physical scale. Horizontal spacing is by order, not by time. The slider steps through the
+// records one at a time (evenly, whatever the gap in years); selecting a pumpkin fills the detail card.
 import { pumpkinPath } from "./pumpkin.js";
 import { humanSvg, dogSvg, carSvg } from "./silhouettes.js";
 import { asPublished, estimateSize, fmt } from "../lib/model.js";
@@ -13,7 +13,6 @@ const TOP_PAD = 22; // px above the tallest object for the selected weight label
 const MIN_PX_PER_M = 22; // below this the stage scrolls sideways instead of shrinking
 const OVERLAP = 0.62; // centre spacing as a share of the two neighbours' mean width
 const MIN_STEP_M = 0.62;
-const STEP_MS = 450;
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function mountLineup(root, { data, refs, steps }) {
@@ -22,15 +21,13 @@ export function mountLineup(root, { data, refs, steps }) {
     scroll: root.querySelector('[data-slot="lineup"]'),
     range: root.querySelector("#year-range"),
     out: root.querySelector("#year-out"),
-    play: root.querySelector('[data-action="play"]'),
     note: root.querySelector('[data-slot="scale-note"]'),
     detail: document.querySelector('[data-slot="detail"]'),
     toggles: [...root.querySelectorAll("[data-ref]")],
   };
   const first = steps[0], last = steps.at(-1);
   // upto: index of the latest record reached on the timeline (two records can share a year).
-  const state = { upto: steps.length - 1, selected: last.id, timer: null, s: 0 };
-  const indexAt = (year) => Math.max(steps.findLastIndex((r) => r.year <= year), 0);
+  const state = { upto: steps.length - 1, selected: last.id, s: 0 };
 
   // Layout in metres, independent of screen size.
   const human = humanSvg(refs.human, 1), dog = dogSvg(refs.dog, 1), car = carSvg(refs.car, 1);
@@ -49,8 +46,8 @@ export function mountLineup(root, { data, refs, steps }) {
   const totalM = x + sizes.get(last.id).widthM / 2 + 0.2;
   const tallestM = Math.max(refs.human.heightM, refs.car.heightM, ...[...sizes.values()].map((z) => z.heightM * 1.2));
 
-  els.range.min = first.year;
-  els.range.max = last.year;
+  els.range.min = 0;
+  els.range.max = steps.length - 1;
 
   function draw() {
     const avail = els.scroll.clientWidth - GUTTER_L - GUTTER_R;
@@ -121,7 +118,8 @@ export function mountLineup(root, { data, refs, steps }) {
     });
     if (instant) requestAnimationFrame(() => requestAnimationFrame(() => svg.classList.remove("is-instant")));
     const cur = steps[state.upto];
-    els.range.value = cur.year;
+    els.range.value = state.upto;
+    els.range.setAttribute("aria-valuetext", `${cur.year}, ${cur.grower}, ${fmt(cur.weightKg, 1)} kilograms`);
     els.out.textContent = `${cur.year} · record ${asPublished(cur.weightKg)} kg`;
     const r = steps.find((z) => z.id === state.selected);
     renderDetail(els.detail, { record: r, size: sizes.get(r.id), steps, refs, data });
@@ -133,9 +131,9 @@ export function mountLineup(root, { data, refs, steps }) {
       view.scrollTo({ left: cx - view.clientWidth / 2, behavior: reducedMotion() ? "auto" : "smooth" });
   }
 
-  function setYear(year) {
-    state.upto = indexAt(year);
-    state.selected = steps[state.upto].id;
+  function setIndex(i) {
+    state.upto = i;
+    state.selected = steps[i].id;
     update();
   }
 
@@ -146,42 +144,21 @@ export function mountLineup(root, { data, refs, steps }) {
     if (focus) els.scroll.querySelector(`.pk[data-id="${id}"]`)?.focus({ preventScroll: true });
   }
 
-  function stop() {
-    clearInterval(state.timer);
-    state.timer = null;
-    els.play.textContent = "Play history";
-  }
-
-  function play() {
-    if (state.timer) return stop();
-    state.upto = 0;
-    state.selected = first.id;
-    update();
-    els.play.textContent = "Pause";
-    state.timer = setInterval(() => {
-      if (state.upto >= steps.length - 1) return stop();
-      state.upto += 1;
-      state.selected = steps[state.upto].id;
-      update();
-    }, STEP_MS);
-  }
-
-  els.range.addEventListener("input", () => { stop(); setYear(Number(els.range.value)); });
-  els.play.addEventListener("click", play);
+  els.range.addEventListener("input", () => setIndex(Number(els.range.value)));
   for (const t of els.toggles)
     t.addEventListener("change", () => els.scroll.querySelector(`[data-ref-shape="${t.dataset.ref}"]`).classList.toggle("is-hidden", !t.checked));
 
   els.scroll.addEventListener("click", (e) => {
     const g = e.target.closest(".pk");
-    if (g) { stop(); select(g.dataset.id); }
+    if (g) select(g.dataset.id);
   });
   els.scroll.addEventListener("keydown", (e) => {
     const g = e.target.closest(".pk");
     if (!g) return;
     const i = steps.findIndex((r) => r.id === g.dataset.id);
     const go = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: steps.length - 1 }[e.key];
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); stop(); select(g.dataset.id); }
-    else if (go != null && steps[go]) { e.preventDefault(); stop(); select(steps[go].id, { focus: true }); }
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(g.dataset.id); }
+    else if (go != null && steps[go]) { e.preventDefault(); select(steps[go].id, { focus: true }); }
   });
 
   let lastW = 0;

@@ -42,7 +42,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button,
 input {
   font: inherit;
 }
@@ -117,7 +116,6 @@ a {
   top: 8px;
 }
 
-button:focus-visible,
 input:focus-visible,
 a:focus-visible,
 summary:focus-visible {
@@ -269,27 +267,6 @@ summary:focus-visible {
 }
 
 /* ---------- Controls ---------- */
-
-button {
-  min-height: 40px;
-  padding: 7px 14px;
-  color: var(--ink);
-  background: var(--page);
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  font-weight: 300;
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: var(--muted);
-}
-
-.primary-button {
-  min-width: 128px;
-  background: var(--blue-soft);
-  border-color: var(--gray-blue);
-}
 
 label {
   display: flex;

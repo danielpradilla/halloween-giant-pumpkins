@@ -34,7 +34,7 @@ fill(
   "lineup-lede",
   `All ${steps.length} pumpkins that set the world record since ${first.year}, in order, beside an adult, a Labrador and a Volkswagen Golf at the same scale. ` +
     `The current record, ${esc(latest.grower)}'s ${asPublished(latest.weightKg)} kg (${asPublished(latest.weightLb)} lb) pumpkin from ${latest.year}, ` +
-    `weighs as much as ${fmt(c.humans, 0)} adults and ${fmt(c.golfShare * 100, 0)}% of the car. Select a pumpkin, drag the year slider or press Play history.`,
+    `weighs as much as ${fmt(c.humans, 0)} adults and ${fmt(c.golfShare * 100, 0)}% of the car. Select a pumpkin or drag the slider to step through the records.`,
 );
 mountLineup(document.querySelector("#lineup"), { data, refs, steps });
 
