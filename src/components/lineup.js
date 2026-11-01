@@ -151,7 +151,7 @@ export function mountLineup(root, { data, refs, steps }) {
     els.range.setAttribute("aria-valuetext", `${cur.year}, ${cur.grower}, ${fmt(cur.weightKg, 1)} kilograms`);
     els.out.textContent = `${cur.year} · record ${asPublished(cur.weightKg)} kg`;
     const r = steps[k];
-    renderDetail(els.detail, { record: r, size: sizes.get(r.id), steps, refs, data });
+    renderDetail(els.detail, { record: r, steps, refs, data });
     // On narrow screens keep the selected pumpkin and the references beside it in view.
     const left = GUTTER_L + (place.pk[k] - sizes.get(r.id).widthM / 2) * s;
     const right = GUTTER_L + Math.max(...Object.values(place.ref), place.pk[k]) * s + 40;
