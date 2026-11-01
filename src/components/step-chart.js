@@ -1,6 +1,6 @@
-// Chapter 3: step chart of the record weight over time. Gaps longer than 30 years are drawn as a marked axis break
-// so the modern era is readable; the break is labelled with its length.
-import { fmt, lbToKg, milestones } from "../lib/model.js";
+// Step chart of the record weight over time. Gaps longer than 30 years are drawn as a marked axis break so the
+// modern era is readable; the break is labelled with its length.
+import { fmt, lbToKg } from "../lib/model.js";
 
 const W = 1000, H = 500, L = 66, R = 74, T = 34, B = 52;
 const BREAK_YEARS = 30, BREAK_PX = 34;
@@ -59,7 +59,6 @@ export function renderStepChart(el, { steps, data }) {
     return out.filter((yv) => i !== domains.length - 1 || yv < endYear);
   });
 
-  const ms = milestones(steps);
   const thresholds = [1000, 2000, 3000].filter((lb) => lbToKg(lb) < maxKg);
 
   // Fastest ten-year gain between record steps.
@@ -75,9 +74,8 @@ export function renderStepChart(el, { steps, data }) {
     const years = segs[si + 1][0].year - seg.at(-1).year;
     return `<g class="axis-break">
       <path d="M${x0 + 6} ${H - B + 8}l6 -16M${x0 + 14} ${H - B + 8}l6 -16"/>
-      <text x="${(x0 + x1) / 2}" y="${y(seg.at(-1).weightKg) - 70}" text-anchor="middle">
-        <tspan x="${(x0 + x1) / 2 + 40}" dy="0">${years} years without</tspan><tspan x="${(x0 + x1) / 2 + 40}" dy="15">a new record</tspan>
-        <tspan x="${(x0 + x1) / 2 + 40}" dy="15">(${seg.at(-1).year}–${segs[si + 1][0].year}); axis</tspan><tspan x="${(x0 + x1) / 2 + 40}" dy="15">broken here</tspan>
+      <text x="${(x0 + x1) / 2}" y="${y(seg.at(-1).weightKg) - 55}" text-anchor="middle">
+        <tspan x="${(x0 + x1) / 2 + 40}" dy="0">No new record</tspan><tspan x="${(x0 + x1) / 2 + 40}" dy="15">for ${years} years</tspan>
       </text></g>`;
   });
 
@@ -130,5 +128,5 @@ export function renderStepChart(el, { steps, data }) {
     ring.setAttribute("cy", y(s.weightKg).toFixed(1));
   }
   setCurrent(steps.length - 1, steps.length - 1);
-  return { ms, fast, setCurrent };
+  return { setCurrent };
 }

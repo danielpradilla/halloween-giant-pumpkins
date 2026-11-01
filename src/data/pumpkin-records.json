@@ -1,9 +1,9 @@
 {
   "dataLastUpdated": "2026-11-01",
   "statusLabels": {
-    "guinness-world-record": "Guinness World Records title",
-    "gpc-world-record": "World record in the GPC history",
-    "historical-record": "Historically reported record"
+    "guinness-world-record": "Guinness record",
+    "gpc-world-record": "GPC record",
+    "historical-record": "Historical record"
   },
   "silhouetteModel": {
     "coefficientNPerM3": 2070,
@@ -11,11 +11,9 @@
     "fittedMaxDiameterM": 1.4,
     "heightToWidth": 0.6,
     "fitSource": {
-      "label": "Hu, Richards and Alexeev (2011), Modeling the growth of giant pumpkins, Int. J. Non-Linear Mechanics 46:637–647 (author PDF)",
+      "label": "Hu, Richards and Alexeev (2011), Modeling the growth of giant pumpkins (PDF)",
       "url": "https://hu.gatech.edu/Publications/Hu11-pumpkin.pdf"
-    },
-    "fitNote": "Weight–diameter fit W = 2070·L³ (W in newtons, L in metres; 49 pumpkins, R² = 0.97), measured on pumpkins up to about 1.4 m across. Record pumpkins wider than that are extrapolations.",
-    "heightNote": "No record pumpkin has a published height. Hu et al. report that small pumpkins are close to spherical (height/width ≈ 0.9) and that giants flatten by up to 50%. The drawings use 0.6 for every pumpkin; this is an illustrative choice, not a measurement."
+    }
   },
   "records": [
     {
@@ -31,7 +29,7 @@
       "event": "Paris World's Fair (Exposition Universelle)",
       "status": "historical-record",
       "featured": true,
-      "note": "Weighed before any record-keeping body for giant pumpkins existed. The GPC history calls it the first world record.",
+      "note": "Weighed before any group certified records. The GPC calls it the first world record.",
       "dimensions": {},
       "sources": [
         {
@@ -58,7 +56,7 @@
       "event": "St. Louis World's Fair",
       "status": "historical-record",
       "featured": false,
-      "note": "The GPC history dates it 1904 at the St. Louis World's Fair; Outside (1997) and Oregon State University Extension date Warnock's improved record to 1903.",
+      "note": "The GPC gives 1904. Two other sources give 1903.",
       "dimensions": {},
       "sources": [
         {
@@ -89,7 +87,7 @@
       "event": null,
       "status": "gpc-world-record",
       "featured": false,
-      "note": "The GPC history calls it 'the first to break the world record in modern time'. Wikipedia also lists a 453 lb pumpkin by Edgar Van Wyck (Canada) in 1976; the GPC history does not.",
+      "note": "Wikipedia also lists a 453 lb pumpkin by Edgar Van Wyck (Canada) in 1976. The GPC does not.",
       "dimensions": {},
       "sources": [
         {
@@ -142,7 +140,7 @@
       "event": null,
       "status": "gpc-world-record",
       "featured": true,
-      "note": "Dill bred the Atlantic Giant variety. Oregon State University Extension: 'He later entered the Guinness World Records book in 1981 with a 493.5-pound pumpkin.'",
+      "note": "Dill bred the Atlantic Giant, the variety behind every later record.",
       "dimensions": {},
       "sources": [
         {
@@ -173,7 +171,7 @@
       "event": "Half Moon Bay weigh-off, California (as described by the SNGPG history)",
       "status": "gpc-world-record",
       "featured": true,
-      "note": "First pumpkin over 600 lb (GPC history).",
+      "note": "First pumpkin over 600 lb.",
       "dimensions": {},
       "sources": [
         {
@@ -222,7 +220,7 @@
       "event": null,
       "status": "gpc-world-record",
       "featured": true,
-      "note": "First pumpkin over 700 lb (GPC history). The SNGPG history spells the name Thompson.",
+      "note": "First pumpkin over 700 lb. One source spells the name Thompson.",
       "dimensions": {},
       "sources": [
         {
@@ -301,7 +299,7 @@
       "event": null,
       "status": "gpc-world-record",
       "featured": false,
-      "note": "Outside (1997) reports that the 1994 Guinness book listed Norm Craven's 836 lb pumpkin instead, after the World Pumpkin Confederation reported it.",
+      "note": "The 1994 Guinness book listed a lighter pumpkin (Norm Craven, 836 lb) instead (Outside, 1997).",
       "dimensions": {},
       "sources": [
         {
@@ -362,7 +360,7 @@
       "event": "World Pumpkin Confederation weigh-off, Collins, New York",
       "status": "gpc-world-record",
       "featured": true,
-      "note": "First world record over 1,000 lb (GPC history). Not on the GPC's list of Guinness record pumpkins.",
+      "note": "First pumpkin over 1,000 lb.",
       "dimensions": {},
       "sources": [
         {
@@ -471,7 +469,7 @@
       "event": "GPC weigh-off, Canby, Oregon",
       "status": "gpc-world-record",
       "featured": true,
-      "note": "First pumpkin over 1,200 lb (GPC history).",
+      "note": "First pumpkin over 1,200 lb.",
       "dimensions": {},
       "sources": [
         {
@@ -532,7 +530,7 @@
       "event": null,
       "status": "gpc-world-record",
       "featured": false,
-      "note": "The GPC history and BigPumpkins.com list Steve Daletas (1,385 lb) for 2003; the GPC's Guinness list names Bryan Dueck and Drew Papez (1,373 lb) instead.",
+      "note": "One GPC list gives Bryan Dueck and Drew Papez (1,373 lb) for 2003 instead.",
       "dimensions": {},
       "sources": [
         {
@@ -623,7 +621,7 @@
       "event": "Frerichs Farm GPC weigh-off, Warren, Rhode Island",
       "status": "guinness-world-record",
       "featured": true,
-      "note": "Guinness World Records: 'the first pumpkin to officially exceed the 1,500-lb threshold'.",
+      "note": "First pumpkin over 1,500 lb.",
       "dimensions": {},
       "sources": [
         {
@@ -766,7 +764,7 @@
       "event": "Topsfield Fair, Massachusetts",
       "status": "guinness-world-record",
       "featured": true,
-      "note": "First pumpkin over 2,000 lb (Guinness World Records).",
+      "note": "First pumpkin over 2,000 lb.",
       "dimensions": {
         "ottIn": 458,
         "ottSource": {
@@ -856,7 +854,7 @@
       "event": "European Championship Pumpkin Weigh-off, Germany",
       "status": "guinness-world-record",
       "featured": true,
-      "note": "Longest-held record: 9 October 2016 to 26 September 2021 (Guinness World Records).",
+      "note": "Held the record for almost five years, longer than any other.",
       "dimensions": {},
       "sources": [
         {
@@ -953,7 +951,7 @@
       "event": "Wargrave Nursery Giant Vegetable Weigh-Off, Wargrave, Berkshire",
       "status": "guinness-world-record",
       "featured": true,
-      "note": "Nicknamed 'Muggle'. Guinness gives 2,819 lb 4 oz and the ratification date 6 October 2025; BigPumpkins.com dates the weigh-off 4 October 2025. Still the largest pumpkin by circumference.",
+      "note": "Nicknamed Muggle. Guinness dates it 6 October 2025, BigPumpkins.com 4 October. It is still the pumpkin with the largest circumference.",
       "dimensions": {
         "circumferenceCm": 649.8,
         "circumferenceSource": {
@@ -994,7 +992,7 @@
       "event": "Wargrave Weigh-Off, Wargrave, Berkshire",
       "status": "guinness-world-record",
       "featured": false,
-      "note": "Nicknamed 'Bagheera'. Guinness gives 2,856 lb 12.8 oz. Beaten seven days later.",
+      "note": "Nicknamed Bagheera. Beaten seven days later.",
       "dimensions": {
         "circumferenceCm": 596.9,
         "circumferenceSource": {
@@ -1027,7 +1025,7 @@
       "event": "Southern New England Giant Pumpkin Weigh Off, Frerichs Farm, Warren, Rhode Island",
       "status": "guinness-world-record",
       "featured": true,
-      "note": "First pumpkin over 3,000 lb (Guinness World Records). Wallace's third world record.",
+      "note": "First pumpkin over 3,000 lb. Wallace's third world record.",
       "dimensions": {
         "circumferenceCm": 640,
         "circumferenceSource": {

@@ -246,17 +246,20 @@ summary:focus-visible {
   margin-bottom: 0;
 }
 
-.factor-grid,
+.factor-list {
+  max-width: 62em;
+  padding-left: 18px;
+}
+
+.factor-list li + li {
+  margin-top: 6px;
+}
+
 .method-grid,
 .ref-sources {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 12px;
-}
-
-.factor-src {
-  color: var(--secondary);
-  font-size: 0.8rem;
 }
 
 .closing {
@@ -743,12 +746,6 @@ tr:last-child td {
 
 .num-col {
   text-align: right;
-}
-
-.src-list {
-  margin: 0;
-  padding-left: 1.2em;
-  min-width: 15em;
 }
 
 .table-foot {

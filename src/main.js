@@ -1,5 +1,5 @@
-// Entry point: loads the two datasets and fills every data slot. All year- and record-specific text is derived from
-// src/data/*.json, so a new record only needs a JSON edit.
+// Entry point: loads the two data files and fills the page. All record-specific text comes from src/data/*.json,
+// so a new record only needs a JSON edit.
 import { asPublished, comparisons, fitWidthM, fmt, latestRecord, milestones, recordSteps } from "./lib/model.js";
 import { mountLineup } from "./components/lineup.js";
 import { renderStepChart } from "./components/step-chart.js";
@@ -29,85 +29,87 @@ fill("toggle-human", `Adult (${fmt(refs.human.heightM, 2)} m)`);
 fill("toggle-dog", `Labrador (${fmt(refs.dog.heightM * 100)} cm)`);
 fill("toggle-car", `VW Golf (${fmt(refs.car.lengthM, 2)} m)`);
 
-// Lineup
 fill(
   "lineup-lede",
-  `All ${steps.length} pumpkins that set the world record since ${first.year}, in order, beside an adult, a Labrador and a Volkswagen Golf at the same scale. ` +
-    `The current record, ${esc(latest.grower)}'s ${asPublished(latest.weightKg)} kg (${asPublished(latest.weightLb)} lb) pumpkin from ${latest.year}, ` +
-    `weighs as much as ${fmt(c.humans, 0)} adults and ${fmt(c.golfShare * 100, 0)}% of the car. Select a pumpkin or drag the slider to step through the records.`,
+  `All ${steps.length} pumpkins that set the world record since ${first.year}, drawn at the same scale as a Labrador, an adult and a Volkswagen Golf. ` +
+    `The current record is ${esc(latest.grower)}'s ${asPublished(latest.weightKg)} kg (${asPublished(latest.weightLb)} lb) pumpkin from ${latest.year}. ` +
+    `Drag the slider or select a pumpkin.`,
 );
-// Record chart, drawn first so it can follow the lineup from the first draw.
-const { fast, setCurrent } = renderStepChart(slot("step-chart")[0], { steps, data });
+
+// The chart is drawn first so that it can follow the lineup from the first draw.
+const { setCurrent } = renderStepChart(slot("step-chart")[0], { steps, data });
 const lineupEl = document.querySelector("#lineup");
 lineupEl.addEventListener("recordchange", (e) => setCurrent(e.detail.upto, e.detail.selected));
 mountLineup(lineupEl, { data, refs, steps });
-const ms = milestones(steps);
+
+const jump = milestones(steps).biggestJump;
 fill(
   "arms-lede",
-  `The record rose from ${fmt(first.weightKg, 1)} kg in ${first.year} to ${asPublished(latest.weightKg)} kg in ${latest.year}, ` +
-    `${fmt(latest.weightKg / first.weightKg, 1)} times heavier. ` +
-    `First over 1,000 lb: ${ms.over1000lb.year} (${esc(ms.over1000lb.grower)}). First over 1,000 kg: ${ms.over1000kg.year} (${esc(ms.over1000kg.grower)}). ` +
-    `The largest single jump was +${fmt(ms.biggestJump.gainKg, 1)} kg (${ms.biggestJump.from.year} to ${ms.biggestJump.record.year}); ` +
-    `the fastest ten years added ${fmt(fast.gain, 0)} kg (${fast.from.year}–${fast.to.year}).`,
+  `The record went from ${fmt(first.weightKg, 1)} kg in ${first.year} to ${asPublished(latest.weightKg)} kg in ${latest.year}, ` +
+    `${fmt(latest.weightKg / first.weightKg, 1)} times heavier. The biggest single jump was ${fmt(jump.gainKg, 1)} kg, in ${jump.record.year}.`,
 );
 
 fill(
   "finale",
-  `A pumpkin is a fruit. The heaviest one on record, ${asPublished(latest.weightKg)} kg, outweighs the ${fmt(refs.car.curbWeightKg)} kg Golf in the lineup, ` +
-    `and it would take ${fmt(Math.ceil(c.humans))} adults on the other side of a scale to lift it. ` +
-    `It grew from one seed in one season: Oregon State University advises allowing 130 or more days.`,
+  `A pumpkin is a fruit. The heaviest one weighs ${asPublished(latest.weightKg)} kg, more than the ${fmt(refs.car.curbWeightKg)} kg Golf. ` +
+    `It grew from one seed in one season.`,
 );
 
-// Sources & methodology
+// Sources and methods
 const circRows = steps.filter((r) => r.dimensions?.circumferenceCm);
-const counts = Object.fromEntries(Object.keys(data.statusLabels).map((k) => [k, steps.filter((r) => r.status === k).length]));
+const gaps = circRows.map((r) => (1 - fitWidthM(r.weightKg, model) / (r.dimensions.circumferenceCm / 100 / Math.PI)) * 100);
+const tag = (status) => statusTag({ status }, data.statusLabels);
 fill(
   "method",
   `<article class="explain-panel">
-    <h3>Verified data</h3>
-    <p>Weights, dates, growers and events for ${steps.length} record pumpkins, ${first.year}–${latest.year}. Each row in the table below links its own sources. Status labels:</p>
+    <h3>Records</h3>
+    <p>${steps.length} pumpkins, ${first.year} to ${latest.year}. The list only has pumpkins that beat the record. Each row in the table below links to its sources. Sources checked on ${esc(longDate(refs.retrievedOn))}.</p>
     <ul>
-      <li>${statusTag({ status: "guinness-world-record" }, data.statusLabels)} ${counts["guinness-world-record"]} records confirmed on Guinness World Records pages.</li>
-      <li>${statusTag({ status: "gpc-world-record" }, data.statusLabels)} ${counts["gpc-world-record"]} records listed as world records by the Great Pumpkin Commonwealth (GPC), the body that certifies giant-pumpkin weigh-offs; no Guinness page was found for them.</li>
-      <li>${statusTag({ status: "historical-record" }, data.statusLabels)} ${counts["historical-record"]} weights reported before any certifying body existed.</li>
+      <li>${tag("guinness-world-record")} on a Guinness World Records page.</li>
+      <li>${tag("gpc-world-record")} on the record list of the Great Pumpkin Commonwealth (GPC), the group that runs the official weigh-offs.</li>
+      <li>${tag("historical-record")} weighed before anyone certified records.</li>
     </ul>
-    <p>Only pumpkins that beat the previous record are included. Competition winners that did not, such as most Half Moon Bay champions, are left out. Where sources disagree (holder, date or weight), the record's note says so.</p>
   </article>
   <article class="explain-panel" id="method-sizes">
-    <h3>Illustrative estimates</h3>
-    <p>No record pumpkin has a published height, and only ${circRows.length} have a published circumference. The silhouettes are drawn as follows:</p>
+    <h3>Sizes</h3>
+    <p>Records give weight, not size. So the drawings estimate the size:</p>
     <ul>
-      <li>Width, ${circRows.length} pumpkins: the circumference measured by Guinness World Records ÷ π, which assumes a round footprint.</li>
-      <li>Width, all others: the weight–diameter fit from <a href="${esc(model.fitSource.url)}">${esc(model.fitSource.label)}</a>. ${esc(model.fitNote)} Under it, width grows with the cube root of weight (constant density and shape).</li>
-      <li>Height: ${esc(model.heightNote)}</li>
-      <li>The outline's lobes, lean and stem vary per pumpkin for character; they do not describe the real fruit.</li>
+      <li>Width, ${circRows.length} pumpkins: the circumference that Guinness measured, divided by π.</li>
+      <li>Width, the others: from weight, with a formula from <a href="${esc(model.fitSource.url)}">Hu et al. (2011)</a>: weight in newtons (kg × 9.8) = ${model.coefficientNPerM3} × width³ in meters.</li>
+      <li>Height: ${model.heightToWidth} × width. This is a guess. No source gives a height.</li>
     </ul>
-    <p>Check against the measured circumferences: ${circRows
-      .map((r) => {
-        const fit = fitWidthM(r.weightKg, model), meas = r.dimensions.circumferenceCm / 100 / Math.PI;
-        return `${r.year} ${esc(r.grower)}: fit ${fmt(fit, 2)} m, circumference ÷ π ${fmt(meas, 2)} m (${fmt((fit / meas - 1) * 100, 0)}%)`;
-      })
-      .join("; ")}. The fit tends to draw record pumpkins narrower than their measured girth suggests.</p>
+    <p>For the ${circRows.length} measured pumpkins, the formula gives widths ${fmt(Math.min(...gaps), 0)} to ${fmt(Math.max(...gaps), 0)}% smaller than the measurement.</p>
   </article>
   <article class="explain-panel">
-    <h3>Reference assumptions</h3>
+    <h3>Labrador, adult and car</h3>
     <ul>
-      <li>${esc(refs.human.label)}, ${fmt(refs.human.heightM, 2)} m, ${refs.human.massKg} kg. ${esc(refs.human.heightBasis)} ${esc(refs.human.massBasis)}</li>
-      <li>${esc(refs.dog.label)}, ${fmt(refs.dog.heightM * 100)} cm at the withers, ${refs.dog.massKg} kg. ${esc(refs.dog.heightBasis)} ${esc(refs.dog.massBasis)}</li>
-      <li>${esc(refs.car.model)}, ${fmt(refs.car.lengthM * 1000)} × ${fmt(refs.car.heightM * 1000)} mm, wheelbase ${fmt(refs.car.wheelbaseM * 1000)} mm, ${fmt(refs.car.curbWeightKg)} kg. ${esc(refs.car.dimensionsBasis)} ${esc(refs.car.massBasis)}</li>
+      <li>${esc(refs.dog.label)}: ${esc(refs.dog.basis)}</li>
+      <li>${esc(refs.human.label)}: ${esc(refs.human.basis)}</li>
+      <li>${esc(refs.car.model)}: ${fmt(refs.car.lengthM, 3)} m long, ${fmt(refs.car.heightM, 3)} m high, ${fmt(refs.car.curbWeightKg)} kg. ${esc(refs.car.basis)}</li>
     </ul>
-    <p>Weight comparisons divide the record weight by these masses. They say nothing about volume: a pumpkin heavier than the car is still shorter and lower than it.</p>
-  </article>
-  <article class="explain-panel">
-    <h3>Retrieval</h3>
-    <p>Sources checked ${esc(longDate(refs.retrievedOn))}. Data last updated ${esc(longDate(data.dataLastUpdated))}. The datasets and a validation script are in the <a href="https://github.com/danielpradilla/halloween-giant-pumpkins">GitHub repository</a>.</p>
   </article>`,
 );
+
+// Short link text for the table; the full source title shows on hover and in the detail card.
+const SHORT = { "guinnessworldrecords.com": "Guinness", "gpc1.org": "GPC", "bigpumpkins.com": "BigPumpkins", "outsideonline.com": "Outside", "oregonstate.edu": "Oregon State", "sngpg.com": "SNGPG", "wikipedia.org": "Wikipedia", "pnwgpg.com": "PNWGPG" };
+const shortName = (url) => Object.entries(SHORT).find(([host]) => new URL(url).hostname.endsWith(host))?.[1] ?? new URL(url).hostname;
+// Repeated names get a number: "Guinness, Guinness 2".
+const shortLinks = (sources) => {
+  const seen = {};
+  return sources
+    .map((s) => {
+      const name = shortName(s.url);
+      seen[name] = (seen[name] ?? 0) + 1;
+      return `<a href="${esc(s.url)}" title="${esc(s.label)}" rel="noopener">${esc(name)}${seen[name] > 1 ? ` ${seen[name]}` : ""}</a>`;
+    })
+    .join(", ");
+};
+const sentence = (t) => (/[.!?]$/.test(t) ? t : `${t}.`);
 
 fill(
   "records-table",
   `<table>
-    <thead><tr><th scope="col">Date</th><th scope="col">Grower</th><th scope="col">Country</th><th scope="col" class="num-col">kg</th><th scope="col" class="num-col">lb</th><th scope="col">Status</th><th scope="col">Event and notes</th><th scope="col">Sources</th></tr></thead>
+    <thead><tr><th scope="col">Date</th><th scope="col">Grower</th><th scope="col">Country</th><th scope="col" class="num-col">kg</th><th scope="col" class="num-col">lb</th><th scope="col">Status</th><th scope="col">Weigh-off and notes</th><th scope="col">Sources</th></tr></thead>
     <tbody>${steps
       .slice()
       .reverse()
@@ -115,24 +117,24 @@ fill(
         (r) => `<tr>
           <td class="num">${r.date ? esc(r.date) : r.year}</td>
           <td>${esc(r.grower)}</td>
-          <td>${r.country ? esc(r.country) : '<span class="muted">not stated</span>'}</td>
+          <td>${r.country ? esc(r.country) : '<span class="muted">not given</span>'}</td>
           <td class="num num-col">${asPublished(r.weightKg)}${r.weightKgBasis === "converted" ? '<span class="muted" title="converted from pounds">*</span>' : ""}</td>
           <td class="num num-col">${asPublished(r.weightLb)}</td>
           <td>${statusTag(r, data.statusLabels)}</td>
-          <td>${r.event ? esc(r.event) : ""}${r.event && r.note ? ". " : ""}${r.note ? esc(r.note) : ""}${
+          <td>${[r.event, r.note].filter(Boolean).map((t) => esc(sentence(t))).join(" ")}${
             r.dimensions?.circumferenceCm ? ` Circumference ${fmt(r.dimensions.circumferenceCm, 1)} cm (<a href="${esc(r.dimensions.circumferenceSource.url)}">Guinness</a>).` : ""
           }</td>
-          <td><ol class="src-list">${sourceLinks(r.sources)}</ol></td>
+          <td>${shortLinks(r.sources)}</td>
         </tr>`,
       )
       .join("")}</tbody>
   </table>
-  <p class="small muted table-foot">* kilograms converted from the official pound weight.</p>`,
+  <p class="small muted table-foot">* Converted from pounds.</p>`,
 );
 
 fill(
   "ref-sources",
-  ["human", "dog", "car"]
+  ["dog", "human", "car"]
     .map((k) => `<div class="explain-panel"><span class="metric-label">${esc(refs[k].label)}</span><ul>${sourceLinks(refs[k].sources)}</ul></div>`)
     .join(""),
 );

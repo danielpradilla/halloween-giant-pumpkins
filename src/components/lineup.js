@@ -116,9 +116,8 @@ export function mountLineup(root, { data, refs, steps }) {
       <line class="ground-line" x1="${GUTTER_L - 2}" x2="${W}" y1="${groundY}" y2="${groundY}"/>
     </svg>`;
     els.note.textContent =
-      `Scale: 1 m = ${s.toFixed(0)} px on this screen, the same for every object. Pumpkins are in year order, evenly spaced; the gaps do not represent time. ` +
-      `The Labrador, the adult and the Golf stand beside the selected pumpkin, in that order. ` +
-      `Weights are verified. Pumpkin widths come from a measured circumference where Guinness published one, otherwise from a published weight–diameter fit; heights are illustrative.`;
+      `Scale: 1 m = ${s.toFixed(0)} px. Pumpkins are in year order. The gaps between them do not show time. ` +
+      `The weights are records. The sizes are estimates (see Sizes, under Sources).`;
     update({ instant: true });
   }
 

@@ -60,7 +60,6 @@
   <main id="main">
     <section class="section shell-wide" id="lineup" aria-labelledby="lineup-title">
       <div class="shell-inner">
-        <p class="eyebrow">Every world-record pumpkin, to scale</p>
         <h2 id="lineup-title">Bigger. Heavier. Stranger.</h2>
         <p class="lede" data-slot="lineup-lede"></p>
       </div>
@@ -83,62 +82,39 @@
     <section class="section shell detail-panel" aria-label="Selected pumpkin" data-slot="detail" aria-live="polite"></section>
 
     <section class="section shell" id="arms-race" aria-labelledby="arms-title">
-      <p class="eyebrow">Record weight by year</p>
       <h2 id="arms-title">The arms race</h2>
       <p class="lede" data-slot="arms-lede"></p>
       <figure class="chart-panel">
         <div class="chart-scroll" data-slot="step-chart"></div>
-        <figcaption class="chart-caption">Each step is a heavier pumpkin accepted as the world record in the year shown; the line holds flat until the next record. Blue points are labelled with year and weight rounded to the nearest kilogram. Dotted lines mark 1,000, 2,000 and 3,000 lb. Kilograms are converted from pounds where pounds were the official unit.</figcaption>
+        <figcaption class="chart-caption">Each step is a new world record. Blue points have labels. The dotted lines mark 1,000, 2,000 and 3,000 lb.</figcaption>
       </figure>
     </section>
 
     <section class="section shell" id="how-big" aria-labelledby="how-title">
-      <p class="eyebrow">What changed</p>
       <h2 id="how-title">How big can they get?</h2>
-      <p class="lede">The sources below describe what changed between the 400 lb pumpkins of 1900 and today's. None of them predicts where the record will stop.</p>
-      <div class="factor-grid">
-        <article class="explain-panel">
-          <h3>Selective breeding</h3>
-          <p>Nova Scotia grower Howard Dill spent about 30 years selecting giant pumpkins from Mammoth varieties and developed Dill's Atlantic Giant. Oregon State University Extension: "Every world champion since has come from its offspring." Growers still name seeds after the pumpkin they came from: a "1050 Liggett" seed came from a 1,050 lb pumpkin.</p>
-          <p class="factor-src">Sources: <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a>, <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University fact sheet HYG-1646</a></p>
-        </article>
-        <article class="explain-panel">
-          <h3>Genetics</h3>
-          <p>Giant pumpkins are <i>Cucurbita maxima</i>. A 2022 genomic study places the giant (mammoth) group as descended from the hubbard group, with genes from the buttercup group mixed in. A 2015 study found that giant varieties had no more leaf area or photosynthetic capacity than their ancestor. They had more phloem, the tissue that carries sugar, in their leaf and fruit stalks.</p>
-          <p class="factor-src">Sources: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9531317/">Reddy et al. 2022, Frontiers in Genetics</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/25546629">Savage, Haines &amp; Holbrook 2015, Plant, Cell &amp; Environment</a></p>
-        </article>
-        <article class="explain-panel">
-          <h3>Cultivation techniques</h3>
-          <p>Ohio State's guide allows about 1,000 square feet (93 m²) per plant and, once the fruits reach volleyball size, cuts back to one pumpkin per plant. Growers pollinate by hand to control the cross, bury the vine's leaf nodes so they root, and shade the fruit to prevent scalding and splitting.</p>
-          <p class="factor-src">Sources: <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University</a>, <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a></p>
-        </article>
-        <article class="explain-panel">
-          <h3>Water and nutrients</h3>
-          <p>According to Oregon State, one plant can cover 1,200 square feet and take up to 500 US gallons (about 1,900 litres) of water a week. Ohio State recommends about 2 lb of nitrogen, 3 lb of phosphate and 6 lb of potash per 1,000 square feet. At peak growth an Atlantic Giant can gain close to 50 lb (23 kg) a day, according to plant physiologist Jessica Savage.</p>
-          <p class="factor-src">Sources: <a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University Extension</a>, <a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University</a>, <a href="https://www.smithsonianmag.com/science-nature/surprising-science-giant-pumpkins-180957099/">Smithsonian, 2015</a></p>
-        </article>
-        <article class="explain-panel">
-          <h3>Structural and biological limits</h3>
-          <p>Giant pumpkins flatten as they grow. Hu et al. (2011) measured height-to-width ratios falling by up to 50% from small to large fruit, mostly through deformation at the base. Cracks tend to appear during the fastest phase of growth and after sudden changes in water content, such as rainstorms. The same paper's model of a perfectly uniform shell fails at about 3.3 m across and 9,000 kg, but the authors note that uneven walls may break much earlier, so that figure is not a forecast.</p>
-          <p class="factor-src">Source: <a href="https://hu.gatech.edu/Publications/Hu11-pumpkin.pdf">Hu, Richards &amp; Alexeev 2011, Int. J. Non-Linear Mechanics</a></p>
-        </article>
-      </div>
+      <p class="lede">These are the main reasons for the growth. No source predicts where the record will stop.</p>
+      <ul class="factor-list">
+        <li>Breeding. Howard Dill, a grower in Nova Scotia, spent about 30 years breeding the Atlantic Giant. Every world champion since then comes from his seeds (<a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University</a>).</li>
+        <li>Genetics. Giant varieties do not make more sugar than other pumpkins. They move more sugar into the fruit (<a href="https://pubmed.ncbi.nlm.nih.gov/25546629">Savage et al., 2015</a>).</li>
+        <li>Growing. Growers keep one pumpkin per plant, give each plant about 1,000 square feet (93 m²), pollinate by hand and shade the fruit (<a href="https://cfaes.osu.edu/fact-sheet/growing-giant-pumpkins-home-garden">Ohio State University</a>).</li>
+        <li>Water. One plant can use up to 500 US gallons (1,900 liters) of water a week. At its fastest, a pumpkin gains close to 50 lb (23 kg) a day (<a href="https://extension.oregonstate.edu/news/how-grow-giant-pumpkin-osu-expert-shares-tips">Oregon State University</a>, <a href="https://www.smithsonianmag.com/science-nature/surprising-science-giant-pumpkins-180957099/">Smithsonian</a>).</li>
+        <li>Limits. Big pumpkins sag under their own weight and can be up to 50% flatter than small ones. They crack when they grow too fast, for example after heavy rain (<a href="https://hu.gatech.edu/Publications/Hu11-pumpkin.pdf">Hu et al., 2011</a>).</li>
+      </ul>
       <p class="closing" data-slot="finale"></p>
     </section>
 
     <section class="section shell" id="sources" aria-labelledby="sources-title">
-      <p class="eyebrow">Sources</p>
-      <h2 id="sources-title">Sources &amp; methodology</h2>
+      <h2 id="sources-title">Sources and methods</h2>
       <div class="method-grid" data-slot="method"></div>
       <h3 class="table-title">Record pumpkins</h3>
       <div class="table-shell" data-slot="records-table"></div>
-      <h3 class="table-title">Reference objects</h3>
+      <h3 class="table-title">Labrador, adult and car</h3>
       <div class="ref-sources" data-slot="ref-sources"></div>
     </section>
   </main>
 
   <footer class="shell">
-    <p class="footer-data">Data last updated <span data-slot="updated">…</span>. Code MIT licensed; record data compiled from the sources listed above.</p>
+    <p class="footer-data">Data updated <span data-slot="updated">…</span>. Code under the MIT license.</p>
     <div class="dp-footer">
       <span>© <span data-slot="year">2026</span> Daniel Pradilla</span>
       <nav aria-label="Footer">
